@@ -17,9 +17,8 @@ CREATE TABLE "customer" (
 
 CREATE TABLE "employee" (
     "employee_id" INT   NOT NULL,
-    "account_id" BIGINT   NOT NULL,
     CONSTRAINT "pk_employee" PRIMARY KEY (
-        "account_id"
+        "employee_id"
      )
 );
 
@@ -53,3 +52,6 @@ REFERENCES "customer" ("customer_id");
 
 ALTER TABLE "login" ADD CONSTRAINT "fk_login_customer_id" FOREIGN KEY("customer_id")
 REFERENCES "customer" ("customer_id");
+
+ALTER TABLE "accounts" ADD CONSTRAINT "fk_accounts_emp_id" FOREIGN KEY("emp_id")
+REFERENCES "employee" ("employee_id");
