@@ -1,4 +1,4 @@
-package com.app.model;
+package com.mybank.model;
 
 public class Login {
 

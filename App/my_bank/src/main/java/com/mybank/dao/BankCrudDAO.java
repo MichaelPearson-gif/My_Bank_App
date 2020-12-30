@@ -1,4 +1,4 @@
-package com.app.dao;
+package com.mybank.dao;
 
 public interface BankCrudDAO {
 

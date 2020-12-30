@@ -44,6 +44,20 @@ CREATE TABLE "login" (
      )
 );
 
+CREATE TABLE "transactions" (
+	"transaction_id" INT not null,
+	"account_id" INT not null,
+	"customer_id" INT not null,
+	"transaction" CHAR(15) not null,
+	"amount" NUMERIC not null,
+	"balance" NUMERIC not null,
+	"date" DATE not null,
+	CONSTRAINT "pk_transaction" PRIMARY KEY(
+		"transaction_id"
+	)
+	
+);
+
 ALTER TABLE "employee" ADD CONSTRAINT "fk_employee_account_id" FOREIGN KEY("account_id")
 REFERENCES "accounts" ("account_id");
 
@@ -53,5 +67,8 @@ REFERENCES "customer" ("customer_id");
 ALTER TABLE "login" ADD CONSTRAINT "fk_login_customer_id" FOREIGN KEY("customer_id")
 REFERENCES "customer" ("customer_id");
 
-ALTER TABLE "accounts" ADD CONSTRAINT "fk_accounts_emp_id" FOREIGN KEY("emp_id")
-REFERENCES "employee" ("employee_id");
+ALTER TABLE "transactions" ADD CONSTRAINT "fk_transaction_account_id" FOREIGN KEY("account_id")
+REFERENCES "accounts" ("account_id");
+
+ALTER TABLE "transactions" ADD CONSTRAINT "fk_transaction_customer_id" FOREIGN KEY("customer_id")
+REFERENCES "customer" ("customer_id");
