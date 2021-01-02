@@ -82,3 +82,9 @@ ALTER TABLE "employee" DROP CONSTRAINT "pk_employee";
 ALTER TABLE "employee" ADD COLUMN "account_id" int;
 
 ALTER TABLE "employee" ADD CONSTRAINT "pk_employee_accounts" PRIMARY KEY("account_id");
+
+CREATE SEQUENCE "account_id" START 100000
+OWNED BY accounts.account_id;
+
+CREATE SEQUENCE "customer_id" START 1
+OWNED BY customer.customer_id;
