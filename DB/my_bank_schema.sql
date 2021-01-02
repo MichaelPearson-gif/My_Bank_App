@@ -72,3 +72,13 @@ REFERENCES "accounts" ("account_id");
 
 ALTER TABLE "transactions" ADD CONSTRAINT "fk_transaction_customer_id" FOREIGN KEY("customer_id")
 REFERENCES "customer" ("customer_id");
+
+ALTER TABLE "accounts" DROP CONSTRAINT "fk_accounts_emp_id";
+
+ALTER TABLE "accounts" DROP COLUMN "employee_id";
+
+ALTER TABLE "employee" DROP CONSTRAINT "pk_employee";
+
+ALTER TABLE "employee" ADD COLUMN "account_id" int;
+
+ALTER TABLE "employee" ADD CONSTRAINT "pk_employee_accounts" PRIMARY KEY("account_id");
