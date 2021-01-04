@@ -88,3 +88,6 @@ OWNED BY accounts.account_id;
 
 CREATE SEQUENCE "customer_id" START 1
 OWNED BY customer.customer_id;
+
+CREATE SEQUENCE "transaction_id" START 1000000
+OWNED BY transactions.transaction_id ;
