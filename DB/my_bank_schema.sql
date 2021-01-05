@@ -83,11 +83,17 @@ ALTER TABLE "employee" ADD COLUMN "account_id" int;
 
 ALTER TABLE "employee" ADD CONSTRAINT "pk_employee_accounts" PRIMARY KEY("account_id");
 
-CREATE SEQUENCE "account_id" START 100000
-OWNED BY accounts.account_id;
+DROP SEQUENCE "account_sequence";
 
-CREATE SEQUENCE "customer_id" START 1
-OWNED BY customer.customer_id;
+DROP SEQUENCE "customer_sequence";
 
-CREATE SEQUENCE "transaction_id" START 1000000
-OWNED BY transactions.transaction_id ;
+DROP SEQUENCE "transaction_sequence";
+
+CREATE SEQUENCE "account_sequence" START 99999
+INCREMENT 1;
+
+CREATE SEQUENCE "customer_sequence" START 9
+INCREMENT 1;
+
+CREATE SEQUENCE "transaction_sequence" START 999999
+INCREMENT 1;
