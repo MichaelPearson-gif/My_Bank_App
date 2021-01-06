@@ -14,5 +14,5 @@ public interface CustomerDAO {
 	public Customer updateCustomer(int customerId);
 	
 	// Gets a list of customers
-	public List<Customer> getAllCustomers();
+	public List<Customer> getAllCustomers() throws BusinessException;
 }

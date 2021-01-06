@@ -83,11 +83,12 @@ ALTER TABLE "employee" ADD COLUMN "account_id" int;
 
 ALTER TABLE "employee" ADD CONSTRAINT "pk_employee_accounts" PRIMARY KEY("account_id");
 
-DROP SEQUENCE "account_sequence";
-
-DROP SEQUENCE "customer_sequence";
-
-DROP SEQUENCE "transaction_sequence";
+-- In case I need to get rid of my current sequences
+--DROP SEQUENCE "account_sequence";
+--
+--DROP SEQUENCE "customer_sequence";
+--
+--DROP SEQUENCE "transaction_sequence";
 
 CREATE SEQUENCE "account_sequence" START 99999
 INCREMENT 1;
