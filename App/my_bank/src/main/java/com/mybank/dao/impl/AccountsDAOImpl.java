@@ -57,9 +57,31 @@ public class AccountsDAOImpl implements AccountsDAO {
 	}
 
 	@Override
-	public void lowBalanceAlert() {
-		// TODO Auto-generated method stub
-
+	public String lowBalanceAlert(int accountId) throws BusinessException {
+		String message = null;
+		
+		try (Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT balance, low_balance_alert FROM bank.accounts WHERE account_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, accountId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				
+				double balance = resultSet.getDouble("balance");
+				int alert = resultSet.getInt("low_balance_alert");
+				
+				if (balance <= alert) {
+					message = "Your account balance is below your set amount of $" + alert;
+				}
+				
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact System Admin");
+		}
+		
+		return message;
 	}
 
 	@Override
@@ -69,9 +91,32 @@ public class AccountsDAOImpl implements AccountsDAO {
 	}
 
 	@Override
-	public Accounts searchAccount(int accountId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Accounts searchAccount(int accountId) throws BusinessException {
+		Accounts account = null;
+		
+		try (Connection connection = PostgresqlConnection.getConnection()){
+			String sql = "SELECT * FROM bank.accounts WHERE account_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, accountId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				account = new Accounts();
+				account.setAccountId(accountId);
+				account.setAccountType(resultSet.getString("account_type"));
+				account.setBalance(resultSet.getDouble("balance"));
+				account.setLowBalanceAlert(resultSet.getInt("low_balance_alert"));
+				account.setExpenseAlert(resultSet.getInt("expense_alert"));
+				account.setCustomerId(resultSet.getInt("customer_id"));
+				
+			}else {
+				throw new BusinessException("No bank account with account id: " + accountId);
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact System Admin");
+		}
+		
+		return account;
 	}
 
 	@Override
@@ -86,7 +131,7 @@ public class AccountsDAOImpl implements AccountsDAO {
 			if (resultSet.next()) {
 				balance = resultSet.getDouble("balance");
 			}else {
-				throw new BusinessException("No bank account with account id: " + accountId);
+				throw new BusinessException("No bank account balance with account id: " + accountId);
 			}
 			
 		}catch (ClassNotFoundException | SQLException e) {

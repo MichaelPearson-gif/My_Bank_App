@@ -20,13 +20,13 @@ public interface AccountsDAO {
 	public void transferApproval(String answer);
 	
 	// Alerts the customer when their balance is below a specified amount
-	public void lowBalanceAlert();
+	public String lowBalanceAlert(int accountId) throws BusinessException;
 	
 	// Alerts the customer of a withdrawal transaction that is equal to or higher than their set limit
 	public void highExpenseAlert();
 	
 	// Customer searches for bank account info
-	public Accounts searchAccount(int accountId);
+	public Accounts searchAccount(int accountId) throws BusinessException;
 	
 	// Customer searches for the current balance of their account
 	public double searchBalance(int accountId) throws BusinessException;
