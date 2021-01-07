@@ -8,6 +8,6 @@ public interface LoginDAO {
 	// Customer creates creates a login method
 	public int createLogin(Login login) throws BusinessException;
 	
-	// Customer can update their username or password
-	public Login updateLogin(int customerId);
+	// Customer can login to their account
+	public int loginVerify(String username, String password) throws BusinessException;
 }
