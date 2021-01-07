@@ -1,11 +1,13 @@
 package com.mybank.dao;
 
+import com.mybank.model.Employee;
+
 public interface EmployeeDAO {
 
 	// Employee accepts or rejects new bank account requests
-	public void accountApproval(String answer);
+	public int accountApproval(String answer);
 
-	// Employee updates customer info
-	public int employeeUpdateCustomer(int accountId);
+	// Create a record of new accounts
+	public int createEmployee(Employee emplyee);
 	
 }
