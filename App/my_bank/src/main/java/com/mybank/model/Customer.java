@@ -14,7 +14,6 @@ public class Customer {
 	private String mailAddress;
 	private Date dob;
 	private String gender;
-	private int creditScore;
 	
 	public Customer() {
 		super();
@@ -22,7 +21,7 @@ public class Customer {
 	}
 
 	public Customer(int customerId, String firstName, String lastName, String driversLicense, String ssn, String email,
-			String physicalAddress, String mailAddress, Date dob, String gender, int creditScore) {
+			String physicalAddress, String mailAddress, Date dob, String gender) {
 		super();
 		this.customerId = customerId;
 		this.firstName = firstName;
@@ -34,7 +33,6 @@ public class Customer {
 		this.mailAddress = mailAddress;
 		this.dob = dob;
 		this.gender = gender;
-		this.creditScore = creditScore;
 	}
 
 	public int getCustomerId() {
@@ -117,22 +115,12 @@ public class Customer {
 		this.gender = gender;
 	}
 
-	public int getCreditScore() {
-		return creditScore;
-	}
-
-	public void setCreditScore(int creditScore) {
-		this.creditScore = creditScore;
-	}
-
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", firstName=" + firstName + ", lastName=" + lastName
 				+ ", driversLicense=" + driversLicense + ", ssn=" + ssn + ", email=" + email + ", physicalAddress="
-				+ physicalAddress + ", mailAddress=" + mailAddress + ", dob=" + dob + ", gender=" + gender
-				+ ", creditScore=" + creditScore + "]";
+				+ physicalAddress + ", mailAddress=" + mailAddress + ", dob=" + dob + ", gender=" + gender + "]";
 	}
-	
 	
 }
 

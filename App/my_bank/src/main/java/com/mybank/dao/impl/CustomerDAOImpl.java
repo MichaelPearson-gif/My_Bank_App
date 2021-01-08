@@ -25,8 +25,8 @@ public class CustomerDAOImpl implements CustomerDAO{
 			String dob = sdf.format(customer.getDob());
 			Date dobFormat = Date.valueOf(dob);
 			
-			String sql = "INSERT INTO bank.customer(nextval(customer_sequence), first_name, last_name, drivers_license, ssn, email, physical_address, mailing_address, dob, gender, credit_score) "
-					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO bank.customer(nextval(customer_sequence), first_name, last_name, drivers_license, ssn, email, physical_address, mailing_address, dob, gender) "
+					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, customer.getFirstName());
@@ -38,7 +38,6 @@ public class CustomerDAOImpl implements CustomerDAO{
 			preparedStatement.setString(7, customer.getMailAddress());
 			preparedStatement.setDate(8, dobFormat);
 			preparedStatement.setString(9, customer.getGender());
-			preparedStatement.setInt(10, customer.getCreditScore());
 			
 			c = preparedStatement.executeUpdate();
 			
@@ -77,7 +76,6 @@ public class CustomerDAOImpl implements CustomerDAO{
 				customer.setMailAddress(resultSet.getString("mailing_address"));
 				customer.setDob(resultSet.getDate("dob"));
 				customer.setGender(resultSet.getString("gender"));
-				customer.setCreditScore(resultSet.getInt("credit_score"));
 				customerList.add(customer);
 			}
 			if (customerList.size() == 0) {
