@@ -68,10 +68,12 @@ public class AccountsDAOImpl implements AccountsDAO {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				
+				// Variables to store the results of the query
 				double balance = resultSet.getDouble("balance");
 				int alert = resultSet.getInt("low_balance_alert");
 				
-				if (balance <= alert) {
+				// Check to see if the account balance is below the set amount for the alert
+				if (balance < alert) {
 					message = "Your account balance is below your set amount of $" + alert;
 				}
 				

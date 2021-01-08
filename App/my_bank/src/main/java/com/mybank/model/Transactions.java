@@ -4,9 +4,9 @@ import java.util.Date;
 
 public class Transactions {
 
-	private int transaction_id;
-	private int account_id;
-	private int customer_id;
+	private int transactionId;
+	private int accountId;
+	private int customerId;
 	private String transaction;
 	private double amount;
 	private double balance;
@@ -17,28 +17,40 @@ public class Transactions {
 		// TODO Auto-generated constructor stub
 	}
 
-	public int getTransaction_id() {
-		return transaction_id;
+	public Transactions(int transactionId, int accountId, int customerId, String transaction, double amount,
+			double balance, Date date) {
+		super();
+		this.transactionId = transactionId;
+		this.accountId = accountId;
+		this.customerId = customerId;
+		this.transaction = transaction;
+		this.amount = amount;
+		this.balance = balance;
+		this.date = date;
 	}
 
-	public void setTransaction_id(int transaction_id) {
-		this.transaction_id = transaction_id;
+	public int getTransactionId() {
+		return transactionId;
 	}
 
-	public int getAccount_id() {
-		return account_id;
+	public void setTransactionId(int transactionId) {
+		this.transactionId = transactionId;
 	}
 
-	public void setAccount_id(int account_id) {
-		this.account_id = account_id;
+	public int getAccountId() {
+		return accountId;
 	}
 
-	public int getCustomer_id() {
-		return customer_id;
+	public void setAccountId(int accountId) {
+		this.accountId = accountId;
 	}
 
-	public void setCustomer_id(int customer_id) {
-		this.customer_id = customer_id;
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getTransaction() {
@@ -75,8 +87,8 @@ public class Transactions {
 
 	@Override
 	public String toString() {
-		return "Transactions [transaction_id=" + transaction_id + ", account_id=" + account_id + ", customer_id="
-				+ customer_id + ", transaction=" + transaction + ", amount=" + amount + ", balance=" + balance
+		return "Transactions [transactionId=" + transactionId + ", accountId=" + accountId + ", customerId="
+				+ customerId + ", transaction=" + transaction + ", amount=" + amount + ", balance=" + balance
 				+ ", date=" + date + "]";
 	}
 	
