@@ -9,7 +9,7 @@ import com.mybank.model.Transactions;
 public interface TransactionDAO {
 	
 	// Creates a new transaction log when customer performs a valid transaction
-	public int transactionLog(Transactions transaction);
+	public int transactionLog(Transactions transaction) throws BusinessException;
 	
 	// Retrieves all transaction logs for a customer account
 	public List<Transactions> getAllAccountTransactions(int accountId) throws BusinessException;

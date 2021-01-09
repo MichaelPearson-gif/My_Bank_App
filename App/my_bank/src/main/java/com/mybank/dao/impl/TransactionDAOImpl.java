@@ -16,9 +16,29 @@ import com.mybank.model.Transactions;
 public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
-	public int transactionLog(Transactions transaction) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int transactionLog(Transactions transaction) throws BusinessException {
+		int c = 0;
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "INSERT INTO bank.transactions(nextval(transaction_sequence), account_id, customer_id, transaction, amount, balance, date)"
+					+ "VALUES(?, ?, ?, ?, ?, ?)";
+			
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, transaction.getAccountId());
+			preparedStatement.setInt(2, transaction.getCustomerId());
+			preparedStatement.setString(3, transaction.getTransaction());
+			preparedStatement.setDouble(4, transaction.getAmount());
+			preparedStatement.setDouble(5, transaction.getBalance());
+			preparedStatement.setDate(6, new java.sql.Date(transaction.getDate().getTime()));
+			
+			c = preparedStatement.executeUpdate();
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		return c;
 	}
 
 	@Override
