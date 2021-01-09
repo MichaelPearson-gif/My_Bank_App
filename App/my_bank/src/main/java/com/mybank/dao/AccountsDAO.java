@@ -14,10 +14,7 @@ public interface AccountsDAO {
 	public double customerTransaction(double balance);
 	
 	// Customer views all accounts they have
-	public List<Accounts> getCustomerAccounts(int customerId);
-	
-	// Customer can accept or reject money transfers
-	public void transferApproval(String answer);
+	public List<Accounts> getCustomerAccounts(int customerId) throws BusinessException;
 	
 	// Alerts the customer when their balance is below a specified amount
 	public String lowBalanceAlert(int accountId) throws BusinessException;

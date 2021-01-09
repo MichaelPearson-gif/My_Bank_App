@@ -44,15 +44,34 @@ public class AccountsDAOImpl implements AccountsDAO {
 	}
 
 	@Override
-	public List<Accounts> getCustomerAccounts(int customerId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void transferApproval(String answer) {
-		// TODO Auto-generated method stub
-
+	public List<Accounts> getCustomerAccounts(int customerId) throws BusinessException {
+		List<Accounts> customerAccountList = new ArrayList<>();
+		
+		try (Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT * FROM bank.accounts WHERE customer_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, customerId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Accounts account = new Accounts();
+				account.setAccountId(resultSet.getInt("account_id"));
+				account.setAccountType(resultSet.getString("account_type"));
+				account.setBalance(resultSet.getDouble("balance"));
+				account.setLowBalanceAlert(resultSet.getInt("low_balance_alert"));
+				account.setExpenseAlert(resultSet.getInt("expense_alert"));
+				account.setCustomerId(customerId);
+				customerAccountList.add(account);
+			}
+			if (customerAccountList.size() == 0) {
+				System.out.println("There are no bank accounts associated with the customer of id " + customerId);
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact System Admin");
+		}
+		
+		return customerAccountList;
 	}
 
 	@Override
