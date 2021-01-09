@@ -11,7 +11,6 @@ import com.mybank.dao.AccountsDAO;
 import com.mybank.dao.dbutil.PostgresqlConnection;
 import com.mybank.exception.BusinessException;
 import com.mybank.model.Accounts;
-import com.mybank.model.Customer;
 
 public class AccountsDAOImpl implements AccountsDAO {
 
@@ -172,5 +171,6 @@ public class AccountsDAOImpl implements AccountsDAO {
 		
 		return accountList;
 	}
+
 
 }

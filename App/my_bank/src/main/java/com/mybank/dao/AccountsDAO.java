@@ -7,7 +7,7 @@ import com.mybank.model.Accounts;
 
 public interface AccountsDAO {
 	
-	// Customer creates a new account with initial deposit. (Waits for employee approval)
+	// Customer creates a new account with initial deposit. (Waiting for employee approval)
 	public int createAccount(Accounts account) throws BusinessException;
 	
 	// Updates customer's account balance based on transaction (May create a Functional Interface for the multi-purpose function)
