@@ -38,9 +38,23 @@ public class AccountsDAOImpl implements AccountsDAO {
 	}
 
 	@Override
-	public double customerTransaction(double balance) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double customerTransaction(int accountId, double balance) throws BusinessException {
+		double c = 0;
+		
+		try (Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "UPDATE bank.accounts SET balance = ? WHERE account_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setDouble(1, balance);
+			preparedStatement.setInt(2, accountId);
+			
+			c = preparedStatement.executeUpdate();
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact System Admin");
+		}
+		
+		return c;
 	}
 
 	@Override
@@ -105,10 +119,24 @@ public class AccountsDAOImpl implements AccountsDAO {
 	}
 
 	@Override
-	public void highExpenseAlert() {
-		// TODO Auto-generated method stub
-
-	}
+	public int highExpenseAlert(int accountId) throws BusinessException {
+		int c = 0;
+		
+		try (Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT expense_alert FROM bank.accounts WHERE account_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, accountId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			c = resultSet.getInt("expense_alert");
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact System Admin");
+		}
+		
+		return c;
+		}
 
 	@Override
 	public Accounts searchAccount(int accountId) throws BusinessException {

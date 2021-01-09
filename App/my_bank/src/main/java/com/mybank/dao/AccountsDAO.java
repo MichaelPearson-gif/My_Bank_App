@@ -11,7 +11,7 @@ public interface AccountsDAO {
 	public int createAccount(Accounts account) throws BusinessException;
 	
 	// Updates customer's account balance based on transaction (May create a Functional Interface for the multi-purpose function)
-	public double customerTransaction(double balance);
+	public double customerTransaction(int accountId, double balance) throws BusinessException;
 	
 	// Customer views all accounts they have
 	public List<Accounts> getCustomerAccounts(int customerId) throws BusinessException;
@@ -20,7 +20,7 @@ public interface AccountsDAO {
 	public String lowBalanceAlert(int accountId) throws BusinessException;
 	
 	// Alerts the customer of a withdrawal transaction that is equal to or higher than their set limit
-	public void highExpenseAlert();
+	public int highExpenseAlert(int accountId) throws BusinessException;
 	
 	// Customer searches for bank account info
 	public Accounts searchAccount(int accountId) throws BusinessException;
