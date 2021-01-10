@@ -1,6 +1,6 @@
 package com.mybank.dao;
 
-import java.util.Date;
+
 import java.util.List;
 
 import com.mybank.exception.BusinessException;
@@ -8,7 +8,7 @@ import com.mybank.model.Transactions;
 
 public interface TransactionDAO {
 	
-	// Creates a new transaction log when customer performs a valid transaction
+	// Creates a new transaction log
 	public int transactionLog(Transactions transaction) throws BusinessException;
 	
 	// Retrieves all transaction logs for a customer account

@@ -18,19 +18,20 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public int transactionLog(Transactions transaction) throws BusinessException {
 		int c = 0;
+		// Set the status as pending as a default
+		transaction.setStatus("Pending");
 		
 		try(Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "INSERT INTO bank.transactions(nextval(transaction_sequence), account_id, customer_id, transaction, amount, balance, date)"
-					+ "VALUES(?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO bank.transactions(nextval(transaction_sequence), account_id, transaction, amount, date, status)"
+					+ "VALUES(?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, transaction.getAccountId());
-			preparedStatement.setInt(2, transaction.getCustomerId());
-			preparedStatement.setString(3, transaction.getTransaction());
-			preparedStatement.setDouble(4, transaction.getAmount());
-			preparedStatement.setDouble(5, transaction.getBalance());
-			preparedStatement.setDate(6, new java.sql.Date(transaction.getDate().getTime()));
+			preparedStatement.setString(2, transaction.getTransaction());
+			preparedStatement.setDouble(3, transaction.getAmount());
+			preparedStatement.setDate(4, new java.sql.Date(transaction.getDate().getTime()));
+			preparedStatement.setString(5, transaction.getStatus());
 			
 			c = preparedStatement.executeUpdate();
 			
@@ -55,11 +56,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 				Transactions transaction = new Transactions();
 				transaction.setTransactionId(resultSet.getInt("transaction_id"));
 				transaction.setAccountId(resultSet.getInt("account_id"));
-				transaction.setCustomerId(resultSet.getInt("customer_id"));
 				transaction.setTransaction(resultSet.getString("transaction"));
 				transaction.setAmount(resultSet.getDouble("amount"));
-				transaction.setBalance(resultSet.getDouble("balance"));
 				transaction.setDate(resultSet.getDate("date"));
+				transaction.setStatus(resultSet.getString("status"));
 				accountTransactionList.add(transaction);
 			}
 			if (accountTransactionList.size() == 0) {
@@ -91,11 +91,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 				Transactions transaction = new Transactions();
 				transaction.setTransactionId(resultSet.getInt("transaction_id"));
 				transaction.setAccountId(resultSet.getInt("account_id"));
-				transaction.setCustomerId(resultSet.getInt("customer_id"));
 				transaction.setTransaction(resultSet.getString("transaction"));
 				transaction.setAmount(resultSet.getDouble("amount"));
-				transaction.setBalance(resultSet.getDouble("balance"));
 				transaction.setDate(resultSet.getDate("date"));
+				transaction.setStatus(resultSet.getString("status"));
 				dateTransactionList.add(transaction);
 			}
 			if (dateTransactionList.size() == 0) {
@@ -122,11 +121,10 @@ public class TransactionDAOImpl implements TransactionDAO {
 				Transactions transaction = new Transactions();
 				transaction.setTransactionId(resultSet.getInt("transaction_id"));
 				transaction.setAccountId(resultSet.getInt("account_id"));
-				transaction.setCustomerId(resultSet.getInt("customer_id"));
 				transaction.setTransaction(resultSet.getString("transaction"));
 				transaction.setAmount(resultSet.getDouble("amount"));
-				transaction.setBalance(resultSet.getDouble("balance"));
 				transaction.setDate(resultSet.getDate("date"));
+				transaction.setStatus(resultSet.getString("status"));
 				allTransactionList.add(transaction);
 			}
 			if (allTransactionList.size() == 0) {
