@@ -138,4 +138,54 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return allTransactionList;
 	}
 
+	@Override
+	public int statusUpdate(int transactionId, String answer) throws BusinessException {
+		int c = 0;
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "UPDATE bank.transactions SET status = ? WHERE transaction_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, answer);
+			preparedStatement.setInt(2, transactionId);
+			
+			c = preparedStatement.executeUpdate();
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		return c;
+	}
+
+	@Override
+	public List<Transactions> employeePendingTransactions() throws BusinessException {
+		List<Transactions> pendingTransactionList = new ArrayList<>();
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT * FROM bank.transactions WHERE transaction = New Account AND status = Pending";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Transactions transaction = new Transactions();
+				transaction.setTransactionId(resultSet.getInt("transaction_id"));
+				transaction.setAccountId(resultSet.getInt("account_id"));
+				transaction.setTransaction(resultSet.getString("transaction"));
+				transaction.setAmount(resultSet.getDouble("amount"));
+				transaction.setDate(resultSet.getDate("date"));
+				transaction.setStatus(resultSet.getString("status"));
+				pendingTransactionList.add(transaction);
+			}
+			if (pendingTransactionList.size() == 0) {
+				throw new BusinessException("There are no pending transactions.");
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		return pendingTransactionList;
+	}
+
 }
