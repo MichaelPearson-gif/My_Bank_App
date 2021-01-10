@@ -14,7 +14,7 @@ public interface AccountsDAO {
 	public double customerTransaction(int accountId, double balance) throws BusinessException;
 	
 	// Customer views all accounts they have
-	public List<Accounts> getCustomerAccounts(int customerId) throws BusinessException;
+	public List<Accounts> getCustomerAccounts(String userId) throws BusinessException;
 	
 	// Alerts the customer when their balance is below a specified amount
 	public String lowBalanceAlert(int accountId) throws BusinessException;

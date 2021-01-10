@@ -19,7 +19,7 @@ public class AccountsDAOImpl implements AccountsDAO {
 		int c = 0;
 		try (Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "INSERT INTO bank.accounts(nextval(account_sequence), account_type, balance, low_balance_alert, expense_alert, customer_id) "
+			String sql = "INSERT INTO bank.accounts(nextval(account_sequence), account_type, balance, low_balance_alert, expense_alert, user_id) "
 					+ "VALUES(?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -27,7 +27,7 @@ public class AccountsDAOImpl implements AccountsDAO {
 			preparedStatement.setDouble(2, account.getBalance());
 			preparedStatement.setInt(3, account.getLowBalanceAlert());
 			preparedStatement.setInt(4, account.getExpenseAlert());
-			preparedStatement.setInt(5, account.getCustomerId());
+			preparedStatement.setString(5, account.getUserId());
 			
 			c = preparedStatement.executeUpdate();
 			
@@ -58,14 +58,14 @@ public class AccountsDAOImpl implements AccountsDAO {
 	}
 
 	@Override
-	public List<Accounts> getCustomerAccounts(int customerId) throws BusinessException {
+	public List<Accounts> getCustomerAccounts(String userId) throws BusinessException {
 		List<Accounts> customerAccountList = new ArrayList<>();
 		
 		try (Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "SELECT * FROM bank.accounts WHERE customer_id = ?";
+			String sql = "SELECT * FROM bank.accounts WHERE user_id = ?";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, customerId);
+			preparedStatement.setString(1, userId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Accounts account = new Accounts();
@@ -74,11 +74,11 @@ public class AccountsDAOImpl implements AccountsDAO {
 				account.setBalance(resultSet.getDouble("balance"));
 				account.setLowBalanceAlert(resultSet.getInt("low_balance_alert"));
 				account.setExpenseAlert(resultSet.getInt("expense_alert"));
-				account.setCustomerId(customerId);
+				account.setUserId(userId);
 				customerAccountList.add(account);
 			}
 			if (customerAccountList.size() == 0) {
-				System.out.println("There are no bank accounts associated with the customer of id " + customerId);
+				System.out.println("There are no bank accounts associated with the customer of id " + userId);
 			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
@@ -154,7 +154,7 @@ public class AccountsDAOImpl implements AccountsDAO {
 				account.setBalance(resultSet.getDouble("balance"));
 				account.setLowBalanceAlert(resultSet.getInt("low_balance_alert"));
 				account.setExpenseAlert(resultSet.getInt("expense_alert"));
-				account.setCustomerId(resultSet.getInt("customer_id"));
+				account.setUserId(resultSet.getString("user_id"));
 				
 			}else {
 				throw new BusinessException("No bank account with account id: " + accountId);
@@ -206,7 +206,7 @@ public class AccountsDAOImpl implements AccountsDAO {
 				account.setBalance(resultSet.getDouble("balance"));
 				account.setLowBalanceAlert(resultSet.getInt("low_balance_alert"));
 				account.setExpenseAlert(resultSet.getInt("expense_alert"));
-				account.setCustomerId(resultSet.getInt("customer_id"));
+				account.setUserId(resultSet.getString("user_id"));
 			}
 			if (accountList.size() == 0) {
 				throw new BusinessException("No bank accounts in the DB so far");
