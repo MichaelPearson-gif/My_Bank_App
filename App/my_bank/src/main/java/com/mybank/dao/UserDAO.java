@@ -10,6 +10,9 @@ public interface UserDAO {
 	// Creates a new user
 	public int createUser(User user) throws BusinessException;
 	
+	// Gets a list of all user id's
+	public List<User> getAllUsers() throws BusinessException;
+	
 	// Gets a list of customers
 	public List<User> getAllCustomers(String userId) throws BusinessException;
 	

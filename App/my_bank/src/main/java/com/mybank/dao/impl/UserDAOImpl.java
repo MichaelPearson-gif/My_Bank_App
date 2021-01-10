@@ -120,4 +120,29 @@ public class UserDAOImpl implements UserDAO{
 		return id;
 	}
 
+	@Override
+	public List<User> getAllUsers() throws BusinessException {
+		List<User> userList = new ArrayList<>();
+		
+		try (Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT user_id FROM bank.user";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				User user = new User();
+				user.setUserId(resultSet.getString("user_id"));
+				userList.add(user);
+			}
+			if (userList.size() == 0) {
+				throw new BusinessException("No users in the DB so far");
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact System Admin");
+		}
+		
+		return userList;
+	}
+
 }

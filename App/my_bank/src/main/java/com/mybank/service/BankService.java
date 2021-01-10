@@ -12,7 +12,7 @@ public interface BankService {
 	// Creates a new user
 	public int createUser(User user) throws BusinessException;
 	
-	// Gets a list of customers
+	// Gets a list of customers. Employee info should not appear
 	public List<User> getAllCustomers(String userId) throws BusinessException;
 	
 	// Customer can login to their account
