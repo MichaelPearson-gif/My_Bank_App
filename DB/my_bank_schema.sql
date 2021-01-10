@@ -1,99 +1,58 @@
 
-CREATE TABLE "customer" (
-    "customer_id" INT   NOT NULL,
-    "first_name" CHAR   NOT NULL,
-    "last_name" CHAR   NOT NULL,
-    "drivers_license" CHAR   NOT NULL,
-    "ssn" INT   NOT NULL,
-    "email" CHAR   NOT NULL,
-    "physical_address" CHAR   NOT NULL,
-    "mailing_address" CHAR   NOT NULL,
-    "dob" DATE   NOT NULL,
-    "gender" CHAR   NOT NULL,
-    CONSTRAINT "pk_customer" PRIMARY KEY (
-        "customer_id"
+CREATE TABLE "user" (
+    "user_id" VARCHAR(20)   NOT NULL,
+    "first_name" CHAR(20),
+    "last_name" CHAR(20),
+    "drivers_license" CHAR(8),
+    "ssn" INT,
+    "email" CHAR(20),
+    "billing_address" CHAR(20),
+    "dob" DATE,
+    "gender" CHAR(1),
+    "password" char(20),
+    CONSTRAINT "pk_user" PRIMARY KEY (
+        "user_id"
      )
 );
 
-CREATE TABLE "employee" (
-    "employee_id" INT   NOT NULL,
-    CONSTRAINT "pk_employee" PRIMARY KEY (
-        "employee_id"
-     )
-);
 
 CREATE TABLE "accounts" (
-    "account_id" BIGINT   NOT NULL,
-    "account_type" CHAR   NOT NULL,
-    "routing_id" BIGINT   NOT NULL,
+    "account_id" INT   NOT NULL,
+    "account_type" CHAR(15)   NOT NULL,
     "balance" NUMERIC   NOT NULL,
     "low_balance_alert" INT   NOT NULL,
     "expense_alert" INT   NOT NULL,
-    "customer_id" INT   NOT NULL,
+    "user_id" VARCHAR(20)   NOT NULL,
     CONSTRAINT "pk_accounts" PRIMARY KEY (
         "account_id"
      )
 );
 
-CREATE TABLE "login" (
-    "username" CHAR   NOT NULL,
-    "password" CHAR   NOT NULL,
-    "customer_id" INT   NOT NULL,
-    CONSTRAINT "pk_login" PRIMARY KEY (
-        "username","password"
-     )
-);
 
 CREATE TABLE "transactions" (
 	"transaction_id" INT not null,
 	"account_id" INT not null,
-	"customer_id" INT not null,
 	"transaction" CHAR(15) not null,
 	"amount" NUMERIC not null,
-	"balance" NUMERIC not null,
 	"date" DATE not null,
+	"status" VARCHAR(10),
 	CONSTRAINT "pk_transaction" PRIMARY KEY(
 		"transaction_id"
 	)
 	
 );
 
-ALTER TABLE "employee" ADD CONSTRAINT "fk_employee_account_id" FOREIGN KEY("account_id")
-REFERENCES "accounts" ("account_id");
+-- In case I need to get rid of my current sequences and tables
 
-ALTER TABLE "accounts" ADD CONSTRAINT "fk_accounts_customer_id" FOREIGN KEY("customer_id")
-REFERENCES "customer" ("customer_id");
+--DROP TABLE user, accounts, transactions;
 
-ALTER TABLE "login" ADD CONSTRAINT "fk_login_customer_id" FOREIGN KEY("customer_id")
-REFERENCES "customer" ("customer_id");
-
-ALTER TABLE "transactions" ADD CONSTRAINT "fk_transaction_account_id" FOREIGN KEY("account_id")
-REFERENCES "accounts" ("account_id");
-
-ALTER TABLE "transactions" ADD CONSTRAINT "fk_transaction_customer_id" FOREIGN KEY("customer_id")
-REFERENCES "customer" ("customer_id");
-
-ALTER TABLE "accounts" DROP CONSTRAINT "fk_accounts_emp_id";
-
-ALTER TABLE "accounts" DROP COLUMN "employee_id";
-
-ALTER TABLE "employee" DROP CONSTRAINT "pk_employee";
-
-ALTER TABLE "employee" ADD COLUMN "account_id" int;
-
-ALTER TABLE "employee" ADD CONSTRAINT "pk_employee_accounts" PRIMARY KEY("account_id");
-
--- In case I need to get rid of my current sequences
 --DROP SEQUENCE "account_sequence";
---
+
 --DROP SEQUENCE "customer_sequence";
---
+
 --DROP SEQUENCE "transaction_sequence";
 
 CREATE SEQUENCE "account_sequence" START 99999
-INCREMENT 1;
-
-CREATE SEQUENCE "customer_sequence" START 9
 INCREMENT 1;
 
 CREATE SEQUENCE "transaction_sequence" START 999999
