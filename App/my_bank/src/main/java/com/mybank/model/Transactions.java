@@ -6,27 +6,24 @@ public class Transactions {
 
 	private int transactionId;
 	private int accountId;
-	private int customerId;
 	private String transaction;
 	private double amount;
-	private double balance;
 	private Date date;
+	private String status;
 	
 	public Transactions() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transactions(int transactionId, int accountId, int customerId, String transaction, double amount,
-			double balance, Date date) {
+	public Transactions(int transactionId, int accountId, String transaction, double amount, Date date, String status) {
 		super();
 		this.transactionId = transactionId;
 		this.accountId = accountId;
-		this.customerId = customerId;
 		this.transaction = transaction;
 		this.amount = amount;
-		this.balance = balance;
 		this.date = date;
+		this.status = status;
 	}
 
 	public int getTransactionId() {
@@ -45,14 +42,6 @@ public class Transactions {
 		this.accountId = accountId;
 	}
 
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
 	public String getTransaction() {
 		return transaction;
 	}
@@ -69,14 +58,6 @@ public class Transactions {
 		this.amount = amount;
 	}
 
-	public double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
-
 	public Date getDate() {
 		return date;
 	}
@@ -85,11 +66,67 @@ public class Transactions {
 		this.date = date;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	// Overriding hashCode and equals methods to ensure that two objects are equal to one another
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + accountId;
+		long temp;
+		temp = Double.doubleToLongBits(amount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((transaction == null) ? 0 : transaction.hashCode());
+		result = prime * result + transactionId;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Transactions other = (Transactions) obj;
+		if (accountId != other.accountId)
+			return false;
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (transaction == null) {
+			if (other.transaction != null)
+				return false;
+		} else if (!transaction.equals(other.transaction))
+			return false;
+		if (transactionId != other.transactionId)
+			return false;
+		return true;
+	}
+
 	@Override
 	public String toString() {
-		return "Transactions [transactionId=" + transactionId + ", accountId=" + accountId + ", customerId="
-				+ customerId + ", transaction=" + transaction + ", amount=" + amount + ", balance=" + balance
-				+ ", date=" + date + "]";
+		return "Transactions [transactionId=" + transactionId + ", accountId=" + accountId + ", transaction="
+				+ transaction + ", amount=" + amount + ", date=" + date + ", status=" + status + "]";
 	}
 	
 }

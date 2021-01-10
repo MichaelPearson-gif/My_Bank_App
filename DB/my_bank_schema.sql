@@ -30,11 +30,11 @@ CREATE TABLE "accounts" (
 
 
 CREATE TABLE "transactions" (
-	"transaction_id" INT not null,
-	"account_id" INT not null,
-	"transaction" CHAR(15) not null,
-	"amount" NUMERIC not null,
-	"date" DATE not null,
+	"transaction_id" INT NOT NULL,
+	"account_id" INT NOT NULL,
+	"transaction" CHAR(15) NOT NULL,
+	"amount" NUMERIC NOT NULL,
+	"date" DATE NOT NULL,
 	"status" VARCHAR(10),
 	CONSTRAINT "pk_transaction" PRIMARY KEY(
 		"transaction_id"
