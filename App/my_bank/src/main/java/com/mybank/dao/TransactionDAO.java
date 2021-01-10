@@ -25,4 +25,7 @@ public interface TransactionDAO {
 	
 	// Retrieves all pending transaction logs for employee
 	public List<Transactions> employeePendingTransactions() throws BusinessException;
+	
+	// Retrieves all pending transfer transaction logs for an account
+	public List<Transactions> pendingTransferTransactions(int accountId) throws BusinessException;
 }

@@ -188,4 +188,35 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return pendingTransactionList;
 	}
 
+	@Override
+	public List<Transactions> pendingTransferTransactions(int accountId) throws BusinessException {
+		List<Transactions> pendingTransferList = new ArrayList<>();
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT * FROM bank.transactions WHERE account_id = ? AND transaction = Transfer AND status = Pending";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, accountId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Transactions transaction = new Transactions();
+				transaction.setTransactionId(resultSet.getInt("transaction_id"));
+				transaction.setAccountId(resultSet.getInt("account_id"));
+				transaction.setTransaction(resultSet.getString("transaction"));
+				transaction.setAmount(resultSet.getDouble("amount"));
+				transaction.setDate(resultSet.getDate("date"));
+				transaction.setStatus(resultSet.getString("status"));
+				pendingTransferList.add(transaction);
+			}
+			if (pendingTransferList.size() == 0) {
+				throw new BusinessException("There are no pending transactions.");
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		return pendingTransferList;
+	}
+
 }
