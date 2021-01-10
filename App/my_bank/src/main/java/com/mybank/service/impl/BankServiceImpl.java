@@ -1,7 +1,14 @@
 package com.mybank.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.mybank.dao.AccountsDAO;
+import com.mybank.dao.TransactionDAO;
+import com.mybank.dao.UserDAO;
+import com.mybank.dao.impl.AccountsDAOImpl;
+import com.mybank.dao.impl.TransactionDAOImpl;
+import com.mybank.dao.impl.UserDAOImpl;
 import com.mybank.exception.BusinessException;
 import com.mybank.model.Accounts;
 import com.mybank.model.Transactions;
@@ -9,11 +16,36 @@ import com.mybank.model.User;
 import com.mybank.service.BankService;
 
 public class BankServiceImpl implements BankService {
+	// Creating an instance of each DAO layer
+	private UserDAO userDAO = new UserDAOImpl();
+	private AccountsDAO accountsDAO = new AccountsDAOImpl();
+	private TransactionDAO transactionDAO = new TransactionDAOImpl();
 
 	@Override
 	public int createUser(User user) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int c = 0;
+		
+		// Gets a list of user id's in the DB
+		List<User> userList = new ArrayList<>();
+		userList = userDAO.getAllUsers();
+		
+		// Create a variable to store the user's input id
+		String inputId = user.getUserId();
+		
+		// Iterate through the list to check if the user input id is exists in the DB
+		for (User u : userList) {
+			if(inputId.equals(u) == false) {
+				
+				c = userDAO.createUser(user);
+				
+			}else {
+				throw new BusinessException("Sorry the user id " + inputId + " already exists. Please try a different user id.");
+			}
+		}
+		
+		
+		
+		return c;
 	}
 
 	@Override
