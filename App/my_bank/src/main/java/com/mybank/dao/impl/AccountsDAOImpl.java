@@ -20,8 +20,8 @@ public class AccountsDAOImpl implements AccountsDAO {
 		int c = 0;
 		try (Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "INSERT INTO bank.accounts(nextval(account_sequence), account_type, balance, low_balance_alert, expense_alert, user_id) "
-					+ "VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO bank.accounts "
+					+ "VALUES(nextval(account_sequence), ?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, account.getAccountType());

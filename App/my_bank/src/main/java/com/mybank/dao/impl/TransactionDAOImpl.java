@@ -23,8 +23,8 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		try(Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "INSERT INTO bank.transactions(nextval(transaction_sequence), account_id, transaction, amount, date, status)"
-					+ "VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO bank.transactions"
+					+ "VALUES(nextval(transaction_sequence), ?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, transaction.getAccountId());
