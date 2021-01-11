@@ -21,6 +21,7 @@ public class BankServiceImpl implements BankService {
 	private AccountsDAO accountsDAO = new AccountsDAOImpl();
 	private TransactionDAO transactionDAO = new TransactionDAOImpl();
 
+	// Need to test method
 	@Override
 	public int createUser(User user) throws BusinessException {
 		int c = 0;
@@ -43,15 +44,15 @@ public class BankServiceImpl implements BankService {
 			}
 		}
 		
-		
-		
 		return c;
 	}
 
 	@Override
 	public List<User> getAllCustomers(String userId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<User> customerList = null;
+		customerList = userDAO.getAllCustomers(userId);
+		return customerList;
 	}
 
 	@Override
