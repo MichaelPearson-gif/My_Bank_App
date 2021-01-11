@@ -133,8 +133,10 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public double searchBalance(int accountId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		double balance = 0;
+		balance = accountsDAO.searchBalance(accountId);
+		return balance;
 	}
 
 	@Override
@@ -147,8 +149,10 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public int transactionLog(Transactions transaction) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int c = 0;
+		c = transactionDAO.transactionLog(transaction);
+		return c;
 	}
 
 	@Override
@@ -159,32 +163,42 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public List<Transactions> getAllAccountTransactions(int accountId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Transactions> accountTransactionList = null;
+		accountTransactionList = transactionDAO.getAllAccountTransactions(accountId);
+		return accountTransactionList;
 	}
 
 	@Override
 	public List<Transactions> searchTransactions(int accountId, String date) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Transactions> dateTransactionList = null;
+		dateTransactionList = transactionDAO.searchTransactions(accountId, date);
+		return dateTransactionList;
 	}
 
 	@Override
 	public List<Transactions> getAllTransactions() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Transactions> allTransactionList = null;
+		allTransactionList = transactionDAO.getAllTransactions();
+		return allTransactionList;
 	}
 
 	@Override
 	public List<Transactions> employeePendingTransactions() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Transactions> pendingTransactionList = null;
+		pendingTransactionList = transactionDAO.employeePendingTransactions();
+		return pendingTransactionList;
 	}
 
 	@Override
 	public List<Transactions> pendingTransferTransactions(int accountId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Transactions> pendingTransferList = null;
+		pendingTransferList = transactionDAO.pendingTransferTransactions(accountId);
+		return pendingTransferList;
 	}
 
 }
