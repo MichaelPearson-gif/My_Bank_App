@@ -125,8 +125,25 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public Accounts searchAccount(int accountId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		Accounts account = null;
+		
+		// Get a list of all account id's
+		List<Accounts> accountIdList = new ArrayList<>();
+		accountIdList = accountsDAO.getAllAccountIds();
+		
+		Integer userInput = accountId;
+		
+		// Iterate the list to find a matching account id
+		for (Accounts a : accountIdList) {
+			if(userInput.equals(a) == true) {
+				
+				account = accountsDAO.searchAccount(accountId);
+			}else {
+				throw new BusinessException("Could not find an account with the id " + accountId + ". Double check that you are inputting the correct account id.");
+			}
+		}
+		
+		return account;
 	}
 
 	@Override
