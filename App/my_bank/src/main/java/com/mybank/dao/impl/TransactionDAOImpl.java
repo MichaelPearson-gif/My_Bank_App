@@ -18,8 +18,12 @@ public class TransactionDAOImpl implements TransactionDAO {
 	@Override
 	public int transactionLog(Transactions transaction) throws BusinessException {
 		int c = 0;
-		// Set the status as pending as a default
-		transaction.setStatus("Pending");
+		// Set the status as pending as a default for transactions other than withdraw or deposit
+		if (transaction.getTransaction() == "Withdraw" | transaction.getTransaction() == "Deposit") {
+			transaction.setStatus("Approved");
+		}else {
+			transaction.setStatus("Pending");
+		}
 		
 		try(Connection connection = PostgresqlConnection.getConnection()){
 			
