@@ -121,7 +121,7 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public List<User> getAllUsers() throws BusinessException {
+	public List<User> getAllUserIds() throws BusinessException {
 		List<User> userList = new ArrayList<>();
 		
 		try (Connection connection = PostgresqlConnection.getConnection()){

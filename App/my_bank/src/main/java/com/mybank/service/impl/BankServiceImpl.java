@@ -16,6 +16,10 @@ import com.mybank.model.User;
 import com.mybank.service.BankService;
 
 public class BankServiceImpl implements BankService {
+	
+	// Most methods won't need validating conditions, as they will already be validated by successfully logged into an account
+	// Transaction methods will most likely need to verify that the user inputs are valid arguments
+	
 	// Creating an instance of each DAO layer
 	private UserDAO userDAO = new UserDAOImpl();
 	private AccountsDAO accountsDAO = new AccountsDAOImpl();
@@ -28,7 +32,7 @@ public class BankServiceImpl implements BankService {
 		
 		// Gets a list of user id's in the DB
 		List<User> userList = new ArrayList<>();
-		userList = userDAO.getAllUsers();
+		userList = userDAO.getAllUserIds();
 		
 		// Create a variable to store the user's input id
 		String inputId = user.getUserId();
@@ -56,15 +60,39 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
-	public String loginVerify(String username, String password) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+	public String loginVerify(String userId, String password) throws BusinessException {
+		// Verify that the userId is in the DB. Similar checking system to the createUser method
+		String id = null;
+		User user = new User();
+		
+		// Gets a list of user id's in the DB
+		List<User> userList = new ArrayList<>();
+		userList = userDAO.getAllUserIds();
+		
+		// Create a variable to store the user's input id
+		String inputId = user.getUserId();
+		
+		// Iterate through the list to check if the user input id is exists in the DB
+		for (User u : userList) {
+			if(inputId.equals(u) == true) {
+				
+				id = userDAO.loginVerify(userId, password);
+				
+			}else {
+				throw new BusinessException("Sorry the user id " + inputId + " does not exists. Please try a different user id.");
+			}
+		}
+		
+		return id;
 	}
 
+	// Don't need to verify anything since accounts won't be created until an employee approves it
 	@Override
 	public int createAccount(Accounts account) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		int c = 0;
+		c = accountsDAO.createAccount(account);
+		return c;
 	}
 
 	@Override
@@ -75,14 +103,18 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public List<Accounts> getCustomerAccounts(String userId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Accounts> customerAccountList = null;
+		customerAccountList = accountsDAO.getCustomerAccounts(userId);
+		return customerAccountList;
 	}
 
 	@Override
 	public String lowBalanceAlert(int accountId) throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		String message = null;
+		message = accountsDAO.lowBalanceAlert(accountId);
+		return message;
 	}
 
 	@Override
@@ -105,8 +137,10 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public List<Accounts> getAllAccounts() throws BusinessException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		List<Accounts> accountList = null;
+		accountList = accountsDAO.getAllAccounts();
+		return accountList;
 	}
 
 	@Override

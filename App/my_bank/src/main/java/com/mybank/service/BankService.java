@@ -16,7 +16,7 @@ public interface BankService {
 	public List<User> getAllCustomers(String userId) throws BusinessException;
 	
 	// Customer can login to their account
-	public String loginVerify(String username, String password) throws BusinessException;
+	public String loginVerify(String userId, String password) throws BusinessException;
 	
 	// Customer creates a new account with initial deposit. (Waiting for employee approval)
 	public int createAccount(Accounts account) throws BusinessException;

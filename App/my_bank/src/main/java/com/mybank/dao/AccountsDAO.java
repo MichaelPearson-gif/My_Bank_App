@@ -30,4 +30,7 @@ public interface AccountsDAO {
 	
 	// Gets a list of all bank accounts
 	public List<Accounts> getAllAccounts() throws BusinessException;
+	
+	// Gets a list of all the bank account ids
+	public List<Accounts> getAllAccountIds() throws BusinessException;
 }

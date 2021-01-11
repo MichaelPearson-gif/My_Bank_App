@@ -1,6 +1,7 @@
 package com.mybank.dao.impl;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -217,6 +218,32 @@ public class AccountsDAOImpl implements AccountsDAO {
 		}
 		
 		return accountList;
+	}
+
+	@Override
+	public List<Accounts> getAllAccountIds() throws BusinessException {
+		List<Accounts> accountIdList = new ArrayList<>();
+		
+		try (Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT account_id FROM bank.accounts";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				Accounts account = new Accounts();
+				account.setUserId(resultSet.getString("account_id"));
+				accountIdList.add(account);
+			}
+			if (accountIdList.size() == 0) {
+				throw new BusinessException("No bank accounts in the DB so far");
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact System Admin");
+		}
+		
+		
+		return accountIdList;
 	}
 
 
