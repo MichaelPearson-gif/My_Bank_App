@@ -33,8 +33,8 @@ public class BankMain {
 			log.info("Welcome to MyBank application V1.00");
 			log.info("------------------------------------------------");
 			log.info("PLease select one of the following options:");
-			log.info("1) Login");
-			log.info("2) Create a new account");
+			log.info("1) Create a new account");
+			log.info("2) Login");
 			log.info("3) Exit");
 		
 			// Add a try catch block to parse through the switch case variable
@@ -66,8 +66,6 @@ public class BankMain {
 			
 		}while(ch != 3);
 		
-		
-
 	}
 
 }
