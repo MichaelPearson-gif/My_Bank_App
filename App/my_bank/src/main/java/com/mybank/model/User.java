@@ -1,7 +1,5 @@
 package com.mybank.model;
 
-import java.util.Date;
-
 public class User {
 
 	private String userId;
@@ -11,7 +9,7 @@ public class User {
 	private int ssn;
 	private String email;
 	private String billingAddress;
-	private Date dob;
+	private String dob;
 	private String gender;
 	private String password;
 	
@@ -21,7 +19,7 @@ public class User {
 	}
 
 	public User(String userId, String firstName, String lastName, String driversLicense, int ssn, String email,
-			String billingAddress, Date dob, String gender, String password) {
+			String billingAddress, String dob, String gender, String password) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -91,11 +89,11 @@ public class User {
 		this.billingAddress = billingAddress;
 	}
 
-	public Date getDob() {
+	public String getDob() {
 		return dob;
 	}
 
-	public void setDob(Date dob) {
+	public void setDob(String dob) {
 		this.dob = dob;
 	}
 

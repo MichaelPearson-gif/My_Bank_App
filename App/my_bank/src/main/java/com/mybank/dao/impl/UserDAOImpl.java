@@ -1,11 +1,11 @@
 package com.mybank.dao.impl;
 
 import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +21,7 @@ public class UserDAOImpl implements UserDAO{
 		int c = 0;
 		try (Connection connection = PostgresqlConnection.getConnection()){
 			
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-			String dob = sdf.format(user.getDob());
-			Date dobFormat = Date.valueOf(dob);
+			Date dobFormat = Date.valueOf(user.getDob());
 			
 			String sql = "INSERT INTO bank.user(user_id, first_name, last_name, drivers_license, ssn, email, billing_address, dob, gender, password) "
 					+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -73,7 +71,7 @@ public class UserDAOImpl implements UserDAO{
 				customer.setSsn(resultSet.getInt("ssn"));
 				customer.setEmail(resultSet.getString("email"));
 				customer.setBillingAddress(resultSet.getString("billing_address"));
-				customer.setDob(resultSet.getDate("dob"));
+				customer.setDob(resultSet.getString("dob"));
 				customer.setGender(resultSet.getString("gender"));
 				customerList.add(customer);
 			}
