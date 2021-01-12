@@ -29,25 +29,8 @@ public class BankServiceImpl implements BankService {
 	@Override
 	public int createUser(User user) throws BusinessException {
 		int c = 0;
-		c = userDAO.createUser(user);
 		
-		// Gets a list of user id's in the DB
-//		List<User> userList = new ArrayList<>();
-//		userList = userDAO.getAllUserIds();
-//		
-//		// Create a variable to store the user's input id
-//		String inputId = user.getUserId();
-//		
-//		// Iterate through the list to check if the user input id is exists in the DB
-//		for (User u : userList) {
-//			if(inputId.equals(u) == false) {
-//				
-//				c = userDAO.createUser(user);
-//				
-//			}else {
-//				throw new BusinessException("Sorry the user id " + inputId + " already exists. Please try a different user id.");
-//			}
-//		}
+		 c = userDAO.createUser(user);
 		
 		return c;
 	}

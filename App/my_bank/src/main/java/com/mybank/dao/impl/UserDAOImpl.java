@@ -42,7 +42,7 @@ public class UserDAOImpl implements UserDAO{
 			c = preparedStatement.executeUpdate();
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			throw new BusinessException("Internal error occured contact System Admin");
+			throw new BusinessException("An Internal error has occured. Double check your input for your date of birth or try another user id. If error persists, contact the system admin.");
 		}
 
 		return c;
@@ -132,9 +132,9 @@ public class UserDAOImpl implements UserDAO{
 				user.setUserId(resultSet.getString("user_id"));
 				userList.add(user);
 			}
-			if (userList.size() == 0) {
-				throw new BusinessException("No users in the DB so far");
-			}
+//			if (userList.size() == 0) {
+//				throw new BusinessException("No users in the DB so far");
+//			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
 			throw new BusinessException("Internal error occured contact System Admin");
