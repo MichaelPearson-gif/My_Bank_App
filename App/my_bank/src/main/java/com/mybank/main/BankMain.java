@@ -28,10 +28,6 @@ public class BankMain {
 	
 	public static void main(String[] args) throws BusinessException {
 		
-		// Print Welcome message
-		log.info("Welcome to MyBank application V1.00");
-		log.info("------------------------------------------------");
-		
 		// Create a variable for the switch cases
 		int ch = 0;
 		
@@ -61,7 +57,7 @@ public class BankMain {
 				break;
 				
 			case 2:
-				log.info("This option is still under developement");
+				loginMenu();
 				break;
 				
 			case 3:
@@ -77,6 +73,7 @@ public class BankMain {
 		
 	}
 	
+	// Method that allows a new customer to register for a new user account
 	public static void Register() throws BusinessException {
 		User user = new User();
 		
@@ -112,7 +109,81 @@ public class BankMain {
 		log.info("");
 		log.info("password");
 		user.setPassword(sc.nextLine());
+		
 		bankService.createUser(user);
+		
+	}
+	// Method that takes user to the login menu and allows them to log in
+	public static void loginMenu() throws BusinessException {
+		
+		// Variable to use for switch cases
+		int loginCH = 0;
+		// Do While loop for switch cases so users could login or go back to the main menu
+		do {
+			
+			// Tell the user what choices they can select
+			log.info("Please select one of the following choices");
+			log.info("");
+			log.info("1) Input login credentials");
+			log.info("2) Go back to the Main Menu");
+			
+			// Parse through the switch case variable
+			try {
+				loginCH = Integer.parseInt(sc.nextLine());
+			}catch (NumberFormatException e) {
+				
+			}
+			
+			// Switch cases
+			switch(loginCH) {
+			
+			case 1:
+				// Getting user inputs for their user id and password
+				log.info("Please enter in your user id");
+				String userId = sc.nextLine();
+				log.info("");
+				log.info("Please enter in your password");
+				String password = sc.nextLine();
+				
+				// Checking to see if the userid is an employee or customer
+				if (userId == "employee1") {
+					
+					// Verify the password
+					bankService.loginVerify(userId, password);
+					
+					// Send them to the employee menu
+					log.info("This menu is still under construction");
+//					employeMenu(userId);
+				}else {
+					// Verify the password
+					bankService.loginVerify(userId, password);
+					
+					// Send them to the customer menu
+					log.info("This menu is still under construction");
+//					customerMenu(userId);
+				}
+				
+				break;
+				
+			case 2:
+				log.info("Going back to the Main Menu");
+				break;
+				
+			// Default case to handle invalid options	
+			default: log.info("Invalid menu option. Please retry selecting one of the mentioned options");
+				break;
+			}
+			
+		}while(loginCH != 2);
+	}
+	
+	// Customer Menu
+	public static void customerMenu(String userId) {
+		
+	}
+	
+	// Employee Menu
+	public static void employeMenu(String userId) {
 		
 	}
 
