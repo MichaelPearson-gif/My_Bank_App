@@ -9,12 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.dao.UserDAO;
 import com.mybank.dao.dbutil.PostgresqlConnection;
 import com.mybank.exception.BusinessException;
 import com.mybank.model.User;
 
 public class UserDAOImpl implements UserDAO{
+	
+	// import Logger to print out messages
+	Logger log = Logger.getLogger(UserDAOImpl.class);
 
 	@Override
 	public int createUser(User user) throws BusinessException {
@@ -87,11 +92,9 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public String loginVerify(String userId, String password) throws BusinessException {
-		
-		String id = null;
+	public String loginVerify(String userId) throws BusinessException {
 	
-		String inputPassword = password;
+		String password = null;
 		try (Connection connection = PostgresqlConnection.getConnection()){
 			
 			String sql = "SELECT password FROM bank.user WHERE user_id = ?";
@@ -100,22 +103,17 @@ public class UserDAOImpl implements UserDAO{
 			preparedStatement.setString(1, userId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
-			while(resultSet.next()) {
+			if(resultSet.next()) {
 				
-				id = resultSet.getString("user_id");
-				
-				if (inputPassword.equals(resultSet.getString("password"))) {
-					
-					return id;
-				}
+				password = resultSet.getString("password");
 				
 			}
+			
+			return password;
 			
 		}catch (ClassNotFoundException | SQLException e) {
 			throw new BusinessException("Internal error occured contact System Admin");
 		}
-		
-		return id;
 	}
 
 	@Override
@@ -132,10 +130,6 @@ public class UserDAOImpl implements UserDAO{
 				user.setUserId(resultSet.getString("user_id"));
 				userList.add(user);
 			}
-//			if (userList.size() == 0) {
-//				throw new BusinessException("No users in the DB so far");
-//			}
-			
 		}catch (ClassNotFoundException | SQLException e) {
 			throw new BusinessException("Internal error occured contact System Admin");
 		}

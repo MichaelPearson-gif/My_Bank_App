@@ -3,6 +3,8 @@ package com.mybank.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.dao.AccountsDAO;
 import com.mybank.dao.TransactionDAO;
 import com.mybank.dao.UserDAO;
@@ -24,6 +26,9 @@ public class BankServiceImpl implements BankService {
 	private UserDAO userDAO = new UserDAOImpl();
 	private AccountsDAO accountsDAO = new AccountsDAOImpl();
 	private TransactionDAO transactionDAO = new TransactionDAOImpl();
+	
+	// Import Logger
+	Logger log = Logger.getLogger(BankServiceImpl.class);
 
 	// Need to test method
 	@Override
@@ -44,30 +49,17 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
-	public String loginVerify(String userId, String password) throws BusinessException {
-		// Verify that the userId is in the DB. Similar checking system to the createUser method
-		String id = null;
-		User user = new User();
+	public boolean loginVerify(String userId, String password) throws BusinessException {
+		boolean b = false;
 		
-		// Gets a list of user id's in the DB
-		List<User> userList = new ArrayList<>();
-		userList = userDAO.getAllUserIds();
+		// Verify the password
+		String storedPassword = userDAO.loginVerify(userId);
 		
-		// Create a variable to store the user's input id
-		String inputId = user.getUserId();
-		
-		// Iterate through the list to check if the user input id is exists in the DB
-		for (User u : userList) {
-			if(inputId.equals(u) == true) {
-				
-				id = userDAO.loginVerify(userId, password);
-				
-			}else {
-				throw new BusinessException("Sorry the user id " + inputId + " does not exists. Please try a different user id.");
-			}
+		if(password.equals(storedPassword)) {
+			b = true;
 		}
-		
-		return id;
+
+		return b;
 	}
 
 	// Don't need to verify anything since accounts won't be created until an employee approves it

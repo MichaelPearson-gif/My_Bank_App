@@ -138,6 +138,7 @@ public class BankMain {
 			switch(loginCH) {
 			
 			case 1:
+				
 				// Getting user inputs for their user id and password
 				log.info("Please enter in your user id");
 				String userId = sc.nextLine();
@@ -145,22 +146,30 @@ public class BankMain {
 				log.info("Please enter in your password");
 				String password = sc.nextLine();
 				
-				// Checking to see if the userid is an employee or customer
-				if (userId == "employee1") {
+				// Checking to see if the user id is an employee or customer
+				if (userId.equals("employee1")) {
 					
 					// Verify the password
-					bankService.loginVerify(userId, password);
+					if(bankService.loginVerify(userId, password) == true) {
+						
+						// Send them to the employee menu
+						log.info("This menu is still under construction");
+//						employeMenu(userId);
+					}else {
+						log.info("The password you entered was incorrect. Please try again.");
+					}
 					
-					// Send them to the employee menu
-					log.info("This menu is still under construction");
-//					employeMenu(userId);
 				}else {
 					// Verify the password
-					bankService.loginVerify(userId, password);
+					if(bankService.loginVerify(userId, password) == true) {
+						
+						// Send them to the customer menu
+						log.info("This menu is still under construction");
+//						customerMenu(userId);
+					}else {
+						log.info("The password you entered was incorrect. Please try again.");
+					}
 					
-					// Send them to the customer menu
-					log.info("This menu is still under construction");
-//					customerMenu(userId);
 				}
 				
 				break;

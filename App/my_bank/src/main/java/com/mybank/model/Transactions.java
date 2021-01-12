@@ -74,55 +74,6 @@ public class Transactions {
 		this.status = status;
 	}
 
-	// Overriding hashCode and equals methods to ensure that two objects are equal to one another
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + accountId;
-		long temp;
-		temp = Double.doubleToLongBits(amount);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((status == null) ? 0 : status.hashCode());
-		result = prime * result + ((transaction == null) ? 0 : transaction.hashCode());
-		result = prime * result + transactionId;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Transactions other = (Transactions) obj;
-		if (accountId != other.accountId)
-			return false;
-		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
-			return false;
-		if (date == null) {
-			if (other.date != null)
-				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
-			return false;
-		if (transaction == null) {
-			if (other.transaction != null)
-				return false;
-		} else if (!transaction.equals(other.transaction))
-			return false;
-		if (transactionId != other.transactionId)
-			return false;
-		return true;
-	}
-
 	@Override
 	public String toString() {
 		return "Transactions [transactionId=" + transactionId + ", accountId=" + accountId + ", transaction="

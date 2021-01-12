@@ -17,5 +17,5 @@ public interface UserDAO {
 	public List<User> getAllCustomers(String userId) throws BusinessException;
 	
 	// Customer can login to their account
-	public String loginVerify(String username, String password) throws BusinessException;
+	public String loginVerify(String username) throws BusinessException;
 }
