@@ -53,7 +53,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				
 			}else {
 			
-				String sql = "INSERT INTO bank.transactions"
+				String sql = "INSERT INTO bank.transactions( account_id, transaction, amount, date, status, user_id)"
 						+ "VALUES(?, ?, ?, ?, ?, ?)";
 				
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);

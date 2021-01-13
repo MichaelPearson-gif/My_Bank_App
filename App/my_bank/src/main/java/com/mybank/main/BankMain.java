@@ -414,15 +414,20 @@ public class BankMain {
 				log.info("Approve or Deny");
 				String answer = sc.nextLine();
 				
-				// Update the DB
-				bankService.statusUpdate(transactionId, answer);
+				// Update the DB and create the new bank account
+				if(answer == "Approved") {
+					bankService.statusUpdate(transactionId, answer);
+					bankService.createAccount(methodCrossTransfer);
+				}else {
+					bankService.statusUpdate(transactionId, answer);
+				}
 				
 				// Create an if statement for approved new account requests to automatically create the new bank account
 				// Retrieve the status from the transaction
-				String status = bankService.getTransactionStatus(transactionId);
-				if (status == "Approved") {
-					bankService.createAccount(methodCrossTransfer);
-				}
+//				String status = bankService.getTransactionStatus(transactionId);
+//				if (status == "Approved") {
+//					bankService.createAccount(methodCrossTransfer);
+//				}
 				
 				break;
 				
