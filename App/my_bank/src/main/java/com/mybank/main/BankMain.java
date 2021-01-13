@@ -187,12 +187,12 @@ public class BankMain {
 	}
 	
 	// Customer Menu
-	public static void customerMenu(String userId) {
+	public static void customerMenu(String userId) throws BusinessException{
 		
 	}
 	
 	// Employee Menu
-	public static void employeMenu(String userId) {
+	public static void employeMenu(String userId) throws BusinessException {
 		
 		// Switch variable
 		int employeeCH = 0;
@@ -218,15 +218,18 @@ public class BankMain {
 			switch(employeeCH) {
 			
 			case 1:
-				log.info("This function is under construction");
+				employeeRequests();
 				break;
 				
 			case 2:
-				log.info("This function is under construction");
+				log.info("Please enter in the customer user id");
+				String customerId = sc.nextLine();
+				bankService.getAllCustomers(customerId);
 				break;
 				
 			case 3:
-				log.info("This function is under construction");
+				log.info("Retrieving transaction logs...");
+				bankService.getAllTransactions();
 				break;
 				
 			case 4:
@@ -240,6 +243,61 @@ public class BankMain {
 			}
 			
 		}while (employeeCH != 4);
+		
+	}
+	
+	// Mini menu in the employee menu that pulls a list of pending new account requests and decide to approve or deny
+	public static void employeeRequests() throws BusinessException {
+		
+		// Switch case variable
+		int requestCH = 0;
+		
+		// Prints out the pending requests
+		log.info("Retrieving all pending new bank account requests");
+//		bankService.employeePendingTransactions();
+		
+		// Do While loop for employee choices
+		do {
+			
+			log.info("");
+			log.info("What would you like to do?");
+			log.info("1) Approve / Deny requests");
+			log.info("2) Go back to the employee menu");
+			
+			// Parse through the switch variable
+			try {
+				requestCH = Integer.parseInt(sc.nextLine());
+			}catch (NumberFormatException e) {
+							
+			}
+			
+			switch(requestCH) {
+			
+			case 1:
+				// Get employee input on which transaction status to modify
+				log.info("Please input the transaction id");
+				int transactionId = Integer.parseInt(sc.nextLine());
+				log.info("");
+				log.info("Approve or Deny");
+				String answer = sc.nextLine();
+				
+				// Update the DB
+				bankService.statusUpdate(transactionId, answer);
+				
+				// Create an if statement for approved new account requests to automatically create the new bank account
+				
+				break;
+				
+			case 2:
+				log.info("Going back to employee menu");
+				break;
+				
+			// Default switch case for invalid options
+			default: log.info("Invalid menu option. Please retry selecting one of the mentioned options");
+				break;
+			}
+			
+		}while(requestCH != 2);
 		
 	}
 
