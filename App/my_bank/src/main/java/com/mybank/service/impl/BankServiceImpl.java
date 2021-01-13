@@ -62,12 +62,16 @@ public class BankServiceImpl implements BankService {
 		return b;
 	}
 
-	// Don't need to verify anything since accounts won't be created until an employee approves it
+	// Make sure that user inputs a balance value greater than 0
 	@Override
 	public int createAccount(Accounts account) throws BusinessException {
 		
 		int c = 0;
-		c = accountsDAO.createAccount(account);
+		if (account.getBalance() > 0) {
+			c = accountsDAO.createAccount(account);
+		}else {
+			throw new BusinessException("Initial deposits can not be 0 or negative");
+		}
 		return c;
 	}
 

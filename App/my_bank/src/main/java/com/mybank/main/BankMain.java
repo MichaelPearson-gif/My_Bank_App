@@ -7,6 +7,8 @@ import java.util.Scanner;
 import org.apache.log4j.Logger;
 
 import com.mybank.exception.BusinessException;
+import com.mybank.model.Accounts;
+import com.mybank.model.Transactions;
 import com.mybank.model.User;
 import com.mybank.service.BankService;
 import com.mybank.service.impl.BankServiceImpl;
@@ -18,9 +20,6 @@ public class BankMain {
 	
 	// Create an instance of the service layer
 	private static BankService bankService = new BankServiceImpl();
-	
-	// Create an instance of the User class
-	User user = new User();
 	
 	// Scanner is used to take in user inputs
 	// Scanner is static so I can reference it in my static methods
@@ -217,11 +216,40 @@ public class BankMain {
 			switch(customerCH) {
 			
 			case 1:
-				log.info("This function is still under construction");
+				// Create instances of account and transaction objects
+				Accounts account = new Accounts();
+				Transactions transaction = new Transactions();
+				
+				// Get new account info from customer
+				log.info("Please fill in the following information");
+				log.info("");
+				log.info("Is this a checking or savings account?");
+				account.setAccountType(sc.nextLine());
+				log.info("");
+				log.info("How much would you like to make your starting balance be?");
+				account.setBalance(Double.parseDouble(sc.nextLine()));
+				log.info("");
+				log.info("What is the minimum amount you want in your balance so we can notify you should your balance fall below that amount?");
+				account.setLowBalanceAlert(Integer.parseInt(sc.nextLine()));
+				log.info("");
+				log.info("What is the maximum amount you think you will spend so we can alert you about possible fraud?");
+				account.setExpenseAlert(Integer.parseInt(sc.nextLine()));
+				// Automatically set the user id to the customer's user id
+				account.setUserId(userId);
+				
+				// Create a new transaction log
+				transaction.setTransaction("New Account");
+				transaction.setAmount(account.getBalance());
+				transaction.setUserId(userId);
+				bankService.transactionLog(transaction);
+				
+				
 				break;
 				
 			case 2:
-				log.info("This function is still under construction");
+				log.info("Please enter the account id of the balance you wish to view");
+				int accountId = Integer.parseInt(sc.nextLine());
+				bankService.searchBalance(accountId);
 				break;
 				
 			case 3:

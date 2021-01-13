@@ -27,17 +27,36 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		try(Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "INSERT INTO bank.transactions"
-					+ "VALUES(nextval(transaction_sequence), ?, ?, ?, ?, ?)";
+			// Create a condition to determine if the new transaction log is creating a new account or not
+			if (transaction.getTransaction() == "New Account") {
+				
+				String sql = "INSERT INTO bank.transactions(transaction_id, transaction, amount, date, status, user_id) "
+						+ "VALUES(nextval(transaction_sequence), ?, ?, ?, ?, ?)";
+				
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setString(1, transaction.getTransaction());
+				preparedStatement.setDouble(2, transaction.getAmount());
+				preparedStatement.setDate(3, new java.sql.Date(transaction.getDate().getTime()));
+				preparedStatement.setString(4, transaction.getStatus());
+				preparedStatement.setString(5, transaction.getUserId());
+				
+				c = preparedStatement.executeUpdate();
+				
+			}else {
 			
-			PreparedStatement preparedStatement = connection.prepareStatement(sql);
-			preparedStatement.setInt(1, transaction.getAccountId());
-			preparedStatement.setString(2, transaction.getTransaction());
-			preparedStatement.setDouble(3, transaction.getAmount());
-			preparedStatement.setDate(4, new java.sql.Date(transaction.getDate().getTime()));
-			preparedStatement.setString(5, transaction.getStatus());
-			
-			c = preparedStatement.executeUpdate();
+				String sql = "INSERT INTO bank.transactions"
+						+ "VALUES(nextval(transaction_sequence), ?, ?, ?, ?, ?, ?)";
+				
+				PreparedStatement preparedStatement = connection.prepareStatement(sql);
+				preparedStatement.setInt(1, transaction.getAccountId());
+				preparedStatement.setString(2, transaction.getTransaction());
+				preparedStatement.setDouble(3, transaction.getAmount());
+				preparedStatement.setDate(4, new java.sql.Date(transaction.getDate().getTime()));
+				preparedStatement.setString(5, transaction.getStatus());
+				preparedStatement.setString(6, transaction.getUserId());
+				
+				c = preparedStatement.executeUpdate();
+			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
 			throw new BusinessException("Internal error occured contact SYSADMIN");
