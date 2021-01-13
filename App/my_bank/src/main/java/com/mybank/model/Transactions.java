@@ -10,13 +10,15 @@ public class Transactions {
 	private double amount;
 	private Date date;
 	private String status;
+	private String userId;
 	
 	public Transactions() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Transactions(int transactionId, int accountId, String transaction, double amount, Date date, String status) {
+	public Transactions(int transactionId, int accountId, String transaction, double amount, Date date, String status,
+			String userId) {
 		super();
 		this.transactionId = transactionId;
 		this.accountId = accountId;
@@ -24,6 +26,7 @@ public class Transactions {
 		this.amount = amount;
 		this.date = date;
 		this.status = status;
+		this.userId = userId;
 	}
 
 	public int getTransactionId() {
@@ -74,10 +77,19 @@ public class Transactions {
 		this.status = status;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	@Override
 	public String toString() {
 		return "Transactions [transactionId=" + transactionId + ", accountId=" + accountId + ", transaction="
-				+ transaction + ", amount=" + amount + ", date=" + date + ", status=" + status + "]";
+				+ transaction + ", amount=" + amount + ", date=" + date + ", status=" + status + ", userId=" + userId
+				+ "]";
 	}
 	
 }

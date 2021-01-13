@@ -254,7 +254,7 @@ public class BankMain {
 		
 		// Prints out the pending requests
 		log.info("Retrieving all pending new bank account requests");
-//		bankService.employeePendingTransactions();
+		bankService.employeePendingTransactions();
 		
 		// Do While loop for employee choices
 		do {

@@ -174,7 +174,6 @@ public class TransactionDAOImpl implements TransactionDAO {
 			while (resultSet.next()) {
 				Transactions transaction = new Transactions();
 				transaction.setTransactionId(resultSet.getInt("transaction_id"));
-				transaction.setAccountId(resultSet.getInt("account_id"));
 				transaction.setTransaction(resultSet.getString("transaction"));
 				transaction.setAmount(resultSet.getDouble("amount"));
 				transaction.setDate(resultSet.getDate("date"));
@@ -210,6 +209,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 				transaction.setAmount(resultSet.getDouble("amount"));
 				transaction.setDate(resultSet.getDate("date"));
 				transaction.setStatus(resultSet.getString("status"));
+				transaction.setUserId(resultSet.getString("user_id"));
 				pendingTransferList.add(transaction);
 			}
 			if (pendingTransferList.size() == 0) {
