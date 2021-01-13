@@ -203,7 +203,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		try(Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "SELECT * FROM bank.transactions WHERE transaction = New Account AND status = Pending";
+			String sql = "SELECT * FROM bank.transactions WHERE transaction = 'New Account' AND status = 'Pending'";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
@@ -233,7 +233,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 		
 		try(Connection connection = PostgresqlConnection.getConnection()){
 			
-			String sql = "SELECT * FROM bank.transactions WHERE account_id = ? AND transaction = Transfer AND status = Pending";
+			String sql = "SELECT * FROM bank.transactions WHERE account_id = ? AND transaction = 'Transfer' AND status = 'Pending'";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setInt(1, accountId);
 			ResultSet resultSet = preparedStatement.executeQuery();
