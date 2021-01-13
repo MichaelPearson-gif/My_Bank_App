@@ -22,7 +22,7 @@ public interface BankService {
 	public int createAccount(Accounts account) throws BusinessException;
 	
 	// Updates customer's account balance based on transaction (May create a Functional Interface for the multi-purpose function)
-	public double customerTransaction(int accountId, double balance) throws BusinessException;
+	public int customerTransaction(int accountId, double balance) throws BusinessException;
 	
 	// Customer views all accounts they have
 	public List<Accounts> getCustomerAccounts(String userId) throws BusinessException;
@@ -62,5 +62,11 @@ public interface BankService {
 	
 	// Retrieves all pending transfer transaction logs for an account
 	public List<Transactions> pendingTransferTransactions(int accountId) throws BusinessException;
+	
+	// Calculates the withdrawal and returns the remaining balance. System will catch any times that the balance will end up below 0 or user input is a negative number
+	public double accountWithdraw(int accountId, double amount) throws BusinessException;
+	
+	// Calculates the deposit and returns the remaining balance. System will catch any times that the user inputs a negative number
+	public double accountDeposit(int accountId, double amount) throws BusinessException;
 	
 }

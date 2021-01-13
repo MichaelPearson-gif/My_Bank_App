@@ -39,8 +39,8 @@ public class AccountsDAOImpl implements AccountsDAO {
 	}
 
 	@Override
-	public double customerTransaction(int accountId, double balance) throws BusinessException {
-		double c = 0;
+	public int customerTransaction(int accountId, double balance) throws BusinessException {
+		int c = 0;
 		
 		try (Connection connection = PostgresqlConnection.getConnection()){
 			

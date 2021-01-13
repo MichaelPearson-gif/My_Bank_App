@@ -11,7 +11,7 @@ public interface AccountsDAO {
 	public int createAccount(Accounts account) throws BusinessException;
 	
 	// Updates customer's account balance based on transaction (May create a Functional Interface for the multi-purpose function)
-	public double customerTransaction(int accountId, double balance) throws BusinessException;
+	public int customerTransaction(int accountId, double balance) throws BusinessException;
 	
 	// Customer views all accounts they have
 	public List<Accounts> getCustomerAccounts(String userId) throws BusinessException;

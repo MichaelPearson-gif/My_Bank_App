@@ -243,6 +243,8 @@ public class BankMain {
 				transaction.setUserId(userId);
 				bankService.transactionLog(transaction);
 				
+				// Need to somehow send the account object to the employee mini menu of accepting or denying new accounts
+				
 				
 				break;
 				
@@ -253,7 +255,29 @@ public class BankMain {
 				break;
 				
 			case 3:
-				log.info("This function is still under construction");
+				// Make an instance of a transaction object
+				Transactions transaction1 = new Transactions();
+				
+				// Retrieve the account id and withdraw amount from the user
+				log.info("Please enter the account id from which you wish to withdraw from");
+				int accountWithdrawId = Integer.parseInt(sc.nextLine());
+				log.info("");
+				log.info("Please enter the amount you with to withdraw");
+				double withdraw = Double.parseDouble(sc.nextLine());
+				
+				// Perform the withdraw method and then update the account balance
+				double withdrawBalance = bankService.accountWithdraw(accountWithdrawId, withdraw);
+				
+				bankService.customerTransaction(accountWithdrawId, withdrawBalance);
+				
+				// Create a new transaction log
+				transaction1.setAccountId(accountWithdrawId);
+				transaction1.setTransaction("Withdraw");
+				transaction1.setAmount(withdraw);
+				transaction1.setUserId(userId);
+				bankService.transactionLog(transaction1);
+				
+				
 				break;
 				
 			case 4:

@@ -76,9 +76,10 @@ public class BankServiceImpl implements BankService {
 	}
 
 	@Override
-	public double customerTransaction(int accountId, double balance) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+	public int customerTransaction(int accountId, double balance) throws BusinessException {
+		int c = 0;
+		c = accountsDAO.customerTransaction(accountId, balance);
+		return c;
 	}
 
 	@Override
@@ -179,6 +180,52 @@ public class BankServiceImpl implements BankService {
 		List<Transactions> pendingTransferList = null;
 		pendingTransferList = transactionDAO.pendingTransferTransactions(accountId);
 		return pendingTransferList;
+	}
+
+	@Override
+	public double accountWithdraw(int accountId, double amount) throws BusinessException {
+		// Retrieve the current balance of the account and set it as a variable
+		double balance = accountsDAO.searchBalance(accountId);
+		
+		// Check to see if the user's inputed amount is a positive number
+		if (amount > 0) {
+			
+			// Now check to see if the balance - amount is negative
+			if (balance - amount >= 0) {
+				
+				// Set balance equal to the new balance 
+				balance = balance - amount;
+				
+			}else {
+				// If the condition balance - amount failed, throw a new BusinessException
+				throw new BusinessException("Your balance can not be negative after withdrawing from it");
+			}
+			
+		}else {
+			// If the amount > 0 failed, throw a new BusinessException
+			throw new BusinessException("The withdraw amount can not be negative");
+		}
+		
+		return balance;
+	}
+
+	@Override
+	public double accountDeposit(int accountId, double amount) throws BusinessException {
+		// Retrieve the current balance of the account and set it as a variable
+		double balance = accountsDAO.searchBalance(accountId);
+		
+		// Check to see if user's inputed amount is a positive number
+		if (amount > 0) {
+			
+			// Set balance equal to the new balance
+			balance = balance + amount;
+			
+		}else {
+			// If user inputed amount was a negative number throw a BusinessException 
+			throw new BusinessException("The deposit amount can not be negative");
+		}
+		
+		return balance;
 	}
 
 }
