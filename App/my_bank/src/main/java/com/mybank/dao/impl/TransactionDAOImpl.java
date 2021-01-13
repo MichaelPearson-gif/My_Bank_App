@@ -1,12 +1,15 @@
 package com.mybank.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import com.mybank.dao.TransactionDAO;
 import com.mybank.dao.dbutil.PostgresqlConnection;
@@ -14,12 +17,18 @@ import com.mybank.exception.BusinessException;
 import com.mybank.model.Transactions;
 
 public class TransactionDAOImpl implements TransactionDAO {
+	
+	// Import LocalDate
+	LocalDate ld = LocalDate.now();
+	// Convert to a sql.Date format
+	Date date = Date.valueOf(ld);
+	Logger log = Logger.getLogger(TransactionDAOImpl.class);
 
 	@Override
 	public int transactionLog(Transactions transaction) throws BusinessException {
 		int c = 0;
 		// Set the status as pending as a default for transactions other than withdraw or deposit
-		if (transaction.getTransaction() == "Withdraw" | transaction.getTransaction() == "Deposit") {
+		if (transaction.getTransaction().equals("Withdraw") | transaction.getTransaction().equals("Deposit")) {
 			transaction.setStatus("Approved");
 		}else {
 			transaction.setStatus("Pending");
@@ -28,15 +37,15 @@ public class TransactionDAOImpl implements TransactionDAO {
 		try(Connection connection = PostgresqlConnection.getConnection()){
 			
 			// Create a condition to determine if the new transaction log is creating a new account or not
-			if (transaction.getTransaction() == "New Account") {
+			if (transaction.getTransaction().equals("New Account")) {
 				
-				String sql = "INSERT INTO bank.transactions(transaction_id, transaction, amount, date, status, user_id) "
-						+ "VALUES(nextval(transaction_sequence), ?, ?, ?, ?, ?)";
+				String sql = "INSERT INTO bank.transactions( transaction, amount, date, status, user_id) "
+						+ "VALUES(?, ?, ?, ?, ?)";
 				
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setString(1, transaction.getTransaction());
 				preparedStatement.setDouble(2, transaction.getAmount());
-				preparedStatement.setDate(3, new java.sql.Date(transaction.getDate().getTime()));
+				preparedStatement.setDate(3, date);
 				preparedStatement.setString(4, transaction.getStatus());
 				preparedStatement.setString(5, transaction.getUserId());
 				
@@ -45,13 +54,13 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}else {
 			
 				String sql = "INSERT INTO bank.transactions"
-						+ "VALUES(nextval(transaction_sequence), ?, ?, ?, ?, ?, ?)";
+						+ "VALUES(?, ?, ?, ?, ?, ?)";
 				
 				PreparedStatement preparedStatement = connection.prepareStatement(sql);
 				preparedStatement.setInt(1, transaction.getAccountId());
 				preparedStatement.setString(2, transaction.getTransaction());
 				preparedStatement.setDouble(3, transaction.getAmount());
-				preparedStatement.setDate(4, new java.sql.Date(transaction.getDate().getTime()));
+				preparedStatement.setDate(4, date);
 				preparedStatement.setString(5, transaction.getStatus());
 				preparedStatement.setString(6, transaction.getUserId());
 				
@@ -59,6 +68,9 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
+			
+			log.trace(e.getMessage());
+			
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		
@@ -90,6 +102,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			
 		} catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		
@@ -125,6 +138,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		
@@ -155,6 +169,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			
 		} catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		
@@ -175,6 +190,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			c = preparedStatement.executeUpdate();
 			
 		}catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		
@@ -204,6 +220,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		
@@ -236,6 +253,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		
@@ -259,6 +277,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 			}
 			
 		}catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact SYSADMIN");
 		}
 		

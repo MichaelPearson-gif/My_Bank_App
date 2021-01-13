@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.mybank.dao.AccountsDAO;
 import com.mybank.dao.dbutil.PostgresqlConnection;
 import com.mybank.exception.BusinessException;
@@ -15,13 +17,16 @@ import com.mybank.model.Accounts;
 
 public class AccountsDAOImpl implements AccountsDAO {
 
+	// Create Logger Object
+	Logger log = Logger.getLogger(AccountsDAOImpl.class);
+	
 	@Override
 	public int createAccount(Accounts account) throws BusinessException {
 		int c = 0;
 		try (Connection connection = PostgresqlConnection.getConnection()){
 			
 			String sql = "INSERT INTO bank.accounts "
-					+ "VALUES(nextval(account_sequence), ?, ?, ?, ?, ?)";
+					+ "VALUES(?, ?, ?, ?, ?)";
 			
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, account.getAccountType());
@@ -33,6 +38,7 @@ public class AccountsDAOImpl implements AccountsDAO {
 			c = preparedStatement.executeUpdate();
 			
 		}catch (ClassNotFoundException | SQLException e) {
+			log.trace(e.getMessage());
 			throw new BusinessException("Internal error occured contact System Admin");
 		}
 		return c;

@@ -163,8 +163,7 @@ public class BankMain {
 					if(bankService.loginVerify(userId, password) == true) {
 						
 						// Send them to the customer menu
-						log.info("This menu is still under construction");
-//						customerMenu(userId);
+						customerMenu(userId);
 					}else {
 						log.info("The password you entered was incorrect. Please try again.");
 					}
