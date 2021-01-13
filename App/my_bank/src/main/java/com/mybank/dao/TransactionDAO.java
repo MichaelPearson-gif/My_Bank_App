@@ -14,6 +14,9 @@ public interface TransactionDAO {
 	// Update the status of an account
 	public int statusUpdate(int transactionId, String answer) throws BusinessException;
 	
+	// Get transaction log by trasactionId for creating new bank accounts
+	public String getTransactionStatus(int transactionId) throws BusinessException;
+	
 	// Retrieves all transaction logs for a customer account
 	public List<Transactions> getAllAccountTransactions(int accountId) throws BusinessException;
 	

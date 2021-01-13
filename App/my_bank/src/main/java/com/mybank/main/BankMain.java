@@ -243,7 +243,8 @@ public class BankMain {
 				transaction.setUserId(userId);
 				bankService.transactionLog(transaction);
 				
-				// Need to somehow send the account object to the employee mini menu of accepting or denying new accounts
+				// Send the account object to the employee mini menu
+				methodCrossTransfer = account;
 				
 				
 				break;
@@ -418,6 +419,11 @@ public class BankMain {
 				bankService.statusUpdate(transactionId, answer);
 				
 				// Create an if statement for approved new account requests to automatically create the new bank account
+				// Retrieve the status from the transaction
+				String status = bankService.getTransactionStatus(transactionId);
+				if (status == "Approved") {
+					bankService.createAccount(methodCrossTransfer);
+				}
 				
 				break;
 				
@@ -433,5 +439,8 @@ public class BankMain {
 		}while(requestCH != 2);
 		
 	}
+	
+	// Create a method that will carry over the requested account info over to employee's Request method to automate the creation of a new bank account upon approval
+	public static Accounts methodCrossTransfer;
 
 }

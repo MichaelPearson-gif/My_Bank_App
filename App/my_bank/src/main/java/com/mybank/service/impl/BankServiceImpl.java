@@ -228,4 +228,11 @@ public class BankServiceImpl implements BankService {
 		return balance;
 	}
 
+	@Override
+	public String getTransactionStatus(int transactionId) throws BusinessException {
+		String status = null;
+		status = transactionDAO.getTransactionStatus(transactionId);
+		return status;
+	}
+
 }

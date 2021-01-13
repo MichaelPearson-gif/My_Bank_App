@@ -242,4 +242,27 @@ public class TransactionDAOImpl implements TransactionDAO {
 		return pendingTransferList;
 	}
 
+	@Override
+	public String getTransactionStatus(int transactionId) throws BusinessException {
+		String status = null;
+		
+		try(Connection connection = PostgresqlConnection.getConnection()){
+			
+			String sql = "SELECT status FROM bank.transactions WHERE transaction_id = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setInt(1, transactionId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				status = resultSet.getString("status");
+			}else {
+				throw new BusinessException("Could not find a transaction log with transactionId = " + transactionId);
+			}
+			
+		}catch (ClassNotFoundException | SQLException e) {
+			throw new BusinessException("Internal error occured contact SYSADMIN");
+		}
+		
+		return status;
+	}
+
 }
