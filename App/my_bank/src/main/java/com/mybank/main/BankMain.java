@@ -277,11 +277,30 @@ public class BankMain {
 				transaction1.setUserId(userId);
 				bankService.transactionLog(transaction1);
 				
-				
 				break;
 				
 			case 4:
-				log.info("This function is still under construction");
+				Transactions transaction2 = new Transactions();
+				
+				// Retrieve the account id and withdraw amount from the user
+				log.info("Please enter the account id for which you wish to deposit into");
+				int accountDepositId = Integer.parseInt(sc.nextLine());
+				log.info("");
+				log.info("Please enter the amount you wish to deposit");
+				double deposit = Double.parseDouble(sc.nextLine());
+				
+				// Perform the withdraw method and then update the account balance
+				double depositBalance = bankService.accountDeposit(accountDepositId, deposit);
+				
+				bankService.customerTransaction(accountDepositId, depositBalance);
+				
+				// Create a new transaction log
+				transaction2.setAccountId(accountDepositId);
+				transaction2.setTransaction("Deposit");
+				transaction2.setAmount(depositBalance);
+				transaction2.setUserId(userId);
+				bankService.transactionLog(transaction2);
+				
 				break;
 				
 			case 5:
