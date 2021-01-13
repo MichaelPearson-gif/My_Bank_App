@@ -251,7 +251,7 @@ public class BankMain {
 			case 2:
 				log.info("Please enter the account id of the balance you wish to view");
 				int accountId = Integer.parseInt(sc.nextLine());
-				bankService.searchBalance(accountId);
+				log.info(bankService.searchBalance(accountId));
 				break;
 				
 			case 3:
