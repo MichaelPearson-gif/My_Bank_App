@@ -189,6 +189,68 @@ public class BankMain {
 	// Customer Menu
 	public static void customerMenu(String userId) throws BusinessException{
 		
+		// Switch case variable
+		int customerCH = 0;
+		
+		// Do While loop for the switch cases of the customer menu
+		do {
+			
+			// Customer options
+			log.info("Welcome back " + userId + ". What would you like to do?");
+			log.info("");
+			log.info("1) Apply for a new bank account");
+			log.info("2) View your account balance");
+			log.info("3) Withdraw money");
+			log.info("4) Deposit money");
+			log.info("5) Transfer money");
+			log.info("6) Approve or Deny transfer requests");
+			log.info("7) Logout");
+			
+			// Parse through the switch variable
+			try {
+				customerCH = Integer.parseInt(sc.nextLine());
+			}catch (NumberFormatException e) {
+				
+			}
+			
+			// Switch cases
+			switch(customerCH) {
+			
+			case 1:
+				log.info("This function is still under construction");
+				break;
+				
+			case 2:
+				log.info("This function is still under construction");
+				break;
+				
+			case 3:
+				log.info("This function is still under construction");
+				break;
+				
+			case 4:
+				log.info("This function is still under construction");
+				break;
+				
+			case 5:
+				log.info("This function is still under construction");
+				break;
+				
+			case 6:
+				log.info("This function is still under construction");
+				break;
+				
+			case 7:
+				log.info("Thank you we hope to see you again soon.");
+				break;
+				
+			// Default case for invalid choices
+			default: log.info("Invalid menu option. Please retry selecting one of the mentioned options");
+				break;
+			}
+			
+		}while(customerCH != 7);
+		
 	}
 	
 	// Employee Menu
@@ -236,7 +298,7 @@ public class BankMain {
 				log.info("Thank you we hope to see you again soon.");
 				break;
 				
-			// Default switch case for invalid options
+			// Default switch case for invalid choices
 			default: log.info("Invalid menu option. Please retry selecting one of the mentioned options");
 			break;
 			
@@ -292,7 +354,7 @@ public class BankMain {
 				log.info("Going back to employee menu");
 				break;
 				
-			// Default switch case for invalid options
+			// Default switch case for invalid choices
 			default: log.info("Invalid menu option. Please retry selecting one of the mentioned options");
 				break;
 			}
