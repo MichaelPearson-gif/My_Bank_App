@@ -153,8 +153,8 @@ public class BankMain {
 					if(bankService.loginVerify(userId, password) == true) {
 						
 						// Send them to the employee menu
-						log.info("This menu is still under construction");
-//						employeMenu(userId);
+//						log.info("This menu is still under construction");
+						employeMenu(userId);
 					}else {
 						log.info("The password you entered was incorrect. Please try again.");
 					}
@@ -193,6 +193,53 @@ public class BankMain {
 	
 	// Employee Menu
 	public static void employeMenu(String userId) {
+		
+		// Switch variable
+		int employeeCH = 0;
+		
+		// Do While loop for the switch cases of the employee menu
+		do {
+			
+			// Employee Options
+			log.info("Welcome back " + userId + ". What would you like to do?");
+			log.info("");
+			log.info("1) Approve or deny new bank account requests.");
+			log.info("2) View all bank accounts for a customer");
+			log.info("3) View all transaction logs");
+			log.info("4) Logout");
+			
+			// Parse through the switch variable
+			try {
+				employeeCH = Integer.parseInt(sc.nextLine());
+			}catch (NumberFormatException e) {
+				
+			}
+			
+			switch(employeeCH) {
+			
+			case 1:
+				log.info("This function is under construction");
+				break;
+				
+			case 2:
+				log.info("This function is under construction");
+				break;
+				
+			case 3:
+				log.info("This function is under construction");
+				break;
+				
+			case 4:
+				log.info("Thank you we hope to see you again soon.");
+				break;
+				
+			// Default switch case for invalid options
+			default: log.info("Invalid menu option. Please retry selecting one of the mentioned options");
+			break;
+			
+			}
+			
+		}while (employeeCH != 4);
 		
 	}
 

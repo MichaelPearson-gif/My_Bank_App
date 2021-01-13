@@ -1,0 +1,39 @@
+{INFO                          }  BankMain                        Welcome to MyBank application V1.00  12-Jan-2021 Tuesday PST 17:02:00
+{INFO                          }  BankMain                        ------------------------------------------------  12-Jan-2021 Tuesday PST 17:02:00
+{INFO                          }  BankMain                        PLease select one of the following options:  12-Jan-2021 Tuesday PST 17:02:00
+{INFO                          }  BankMain                        1) Create a new account         12-Jan-2021 Tuesday PST 17:02:00
+{INFO                          }  BankMain                        2) Login                        12-Jan-2021 Tuesday PST 17:02:00
+{INFO                          }  BankMain                        3) Exit                         12-Jan-2021 Tuesday PST 17:02:00
+{INFO                          }  BankMain                        Please select one of the following choices  12-Jan-2021 Tuesday PST 17:02:10
+{INFO                          }  BankMain                                                        12-Jan-2021 Tuesday PST 17:02:10
+{INFO                          }  BankMain                        1) Input login credentials      12-Jan-2021 Tuesday PST 17:02:10
+{INFO                          }  BankMain                        2) Go back to the Main Menu     12-Jan-2021 Tuesday PST 17:02:10
+{INFO                          }  BankMain                        Please enter in your user id    12-Jan-2021 Tuesday PST 17:02:12
+{INFO                          }  BankMain                                                        12-Jan-2021 Tuesday PST 17:02:16
+{INFO                          }  BankMain                        Please enter in your password   12-Jan-2021 Tuesday PST 17:02:16
+{INFO                          }  BankMain                        Welcome back employee1. What would you like to do?  12-Jan-2021 Tuesday PST 17:02:24
+{INFO                          }  BankMain                                                        12-Jan-2021 Tuesday PST 17:02:24
+{INFO                          }  BankMain                        1) Approve or deny new bank account requests.  12-Jan-2021 Tuesday PST 17:02:24
+{INFO                          }  BankMain                        2) View all bank accounts for a customer  12-Jan-2021 Tuesday PST 17:02:24
+{INFO                          }  BankMain                        3) View all transaction logs    12-Jan-2021 Tuesday PST 17:02:24
+{INFO                          }  BankMain                        4) Logout                       12-Jan-2021 Tuesday PST 17:02:24
+{INFO                          }  BankMain                        This function is under construction  12-Jan-2021 Tuesday PST 17:02:38
+{INFO                          }  BankMain                        Welcome back employee1. What would you like to do?  12-Jan-2021 Tuesday PST 17:02:38
+{INFO                          }  BankMain                                                        12-Jan-2021 Tuesday PST 17:02:38
+{INFO                          }  BankMain                        1) Approve or deny new bank account requests.  12-Jan-2021 Tuesday PST 17:02:38
+{INFO                          }  BankMain                        2) View all bank accounts for a customer  12-Jan-2021 Tuesday PST 17:02:38
+{INFO                          }  BankMain                        3) View all transaction logs    12-Jan-2021 Tuesday PST 17:02:38
+{INFO                          }  BankMain                        4) Logout                       12-Jan-2021 Tuesday PST 17:02:38
+{INFO                          }  BankMain                        Thank you we hope to see you again soon.  12-Jan-2021 Tuesday PST 17:02:52
+{INFO                          }  BankMain                        Please select one of the following choices  12-Jan-2021 Tuesday PST 17:02:52
+{INFO                          }  BankMain                                                        12-Jan-2021 Tuesday PST 17:02:52
+{INFO                          }  BankMain                        1) Input login credentials      12-Jan-2021 Tuesday PST 17:02:52
+{INFO                          }  BankMain                        2) Go back to the Main Menu     12-Jan-2021 Tuesday PST 17:02:52
+{INFO                          }  BankMain                        Going back to the Main Menu     12-Jan-2021 Tuesday PST 17:02:54
+{INFO                          }  BankMain                        Welcome to MyBank application V1.00  12-Jan-2021 Tuesday PST 17:02:54
+{INFO                          }  BankMain                        ------------------------------------------------  12-Jan-2021 Tuesday PST 17:02:54
+{INFO                          }  BankMain                        PLease select one of the following options:  12-Jan-2021 Tuesday PST 17:02:54
+{INFO                          }  BankMain                        1) Create a new account         12-Jan-2021 Tuesday PST 17:02:54
+{INFO                          }  BankMain                        2) Login                        12-Jan-2021 Tuesday PST 17:02:54
+{INFO                          }  BankMain                        3) Exit                         12-Jan-2021 Tuesday PST 17:02:54
+{INFO                          }  BankMain                        Thank you for using MyBank application. Have a good day!  12-Jan-2021 Tuesday PST 17:02:55
