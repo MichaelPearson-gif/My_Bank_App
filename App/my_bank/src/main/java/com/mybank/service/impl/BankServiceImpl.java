@@ -138,8 +138,9 @@ public class BankServiceImpl implements BankService {
 
 	@Override
 	public int statusUpdate(int transactionId, String answer) throws BusinessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int c = 0;
+		c = transactionDAO.statusUpdate(transactionId, answer);
+		return c;
 	}
 
 	@Override
